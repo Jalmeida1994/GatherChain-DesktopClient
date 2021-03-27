@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="index.css">
+  <title>GatherChain</title>
+
+</head>
+
+<body>
+  <div class="container" id="container">
+    <div class="form-container sign-in-container">
+      <form id="login" class="submit-form">
+        <h1>Register Number</h1>
+        <p></p>
+        <span>Use your student number for registration</span>
+        <p id="notvalid"></p>
+        <input type="text" id="stunr" placeholder="Student Number" />
+        <button type="button" onClick="Login()">Connect to GitHub</button>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-right">
+          <h1 id="1">Welcome, Friend!</h1>
+          <p id="2">To keep using the app you must register your student number and connect the app with your GitHub
+            account.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      Created with <i class="fa fa-heart"></i> by
+      <a target="_blank" href="https://jalmeida1994.github.io/Jalmeida.github.io/">Joao Almeida</a>
+    </p>
+  </footer>
+
+  <script>
+    function Login() {
+      var x, text;
+
+      // Get the value of the input field with id="numb"
+      x = document.getElementById("stunr").value;
+
+      // If x is Not a Number or less than one or greater than 10
+      if (isNaN(x)) {
+        text = "Input not valid, must be a number.";
+        document.getElementById("notvalid").innerHTML = text;
+      } else {
+        //const util = require('util');
+        //const exec = util.promisify(require('child_process').exec);
+
+        //async function lsExample() {
+        //  const { stdout, stderr } = await exec(`./commands/login.sh ${x}`);
+        //  text = console.log('stdout:', stdout);
+        //console.error('stderr:', stderr);
+        //  }
+        //lsExample();
+        //window.location="waitingauth.html";
+        const execSync = require('child_process').execSync;
+        const output = execSync(`./commands/login.sh ${x}`, { encoding: 'utf-8' });  // the default is 'buffer'
+        console.log('Output was:\n', output);
+
+        const execSync2 = require('child_process').execSync;
+        const output2 = execSync2(`./usercode.sh`, { encoding: 'utf-8' });  // the default is 'buffer'
+        console.log('Output was:\n', output2);
+
+        window.requestAnimationFrame(() => {
+          document.getElementById("notvalid").innerHTML = "";
+          document.getElementById("1").innerHTML = output2;
+          document.getElementById("2").innerHTML = "Insert the code in https://github.com/login/device";
+        });
+        CheckAuth()
+      }
+
+      function CheckAuth() {
+        const util = require('util');
+        const exec = util.promisify(require('child_process').exec);
+
+        async function lsExample() {
+          const { stdout, stderr } = await exec(`./commands/checkauth.sh`);
+          const data = await stdout
+          console.log('stdout:', data);
+          return data
+        }
+        lsExample().then(res => {
+          if (window.confirm(res)) {
+            window.location = "waitingauth.html";
+          }
+          else {
+            window.location("notlogged.html")
+          }
+        }).catch(res => {
+          if (window.confirm("User did not activated the device")) {
+            window.location = "notlogged.html";
+          }
+          else {
+            window.location("notlogged.html")
+          }
+        })
+        //lsExample().then(window.open("waitingauth.html"))
+      }
+    }
+  </script>
+</body>
+
+</html>

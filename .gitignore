@@ -1,0 +1,11 @@
+# Mac Files
+.DS_Store
+
+# Dependency directories
+node_modules/
+
+#VSCode directory
+.vscode/
+
+#env
+*.env

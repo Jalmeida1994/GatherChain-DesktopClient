@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <title>GatherChain</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container open-folder-container">
+            <form id="login" class="open-folder-form">
+                <h1>Almost there...</h1>
+                <p>It looks like this directory still hasn't been used for GatherChain</p>
+                <button type="button" onClick="createGroup()">Create Group</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function createGroup() {
+            const prompt = require('electron-prompt');
+            prompt({
+                title: "Your colleagues numbers separated by WHITESPACE",
+                label: 'Colleagues Numbers:',
+                value: '11111 11111',
+                inputAttrs: {
+                    type: 'text',
+                    required: true
+                },
+                type: 'input'
+            })
+                .then((r) => {
+                    if (r === null) {
+                        console.log('User Cancelled');
+                    } else {
+                        console.log('result', r);
+                        createGroupCommand(r);
+                    }
+                })
+                .catch(console.error);
+        }
+
+        function createGroupCommand(r) {
+            console.log(r);
+            const util = require('util');
+            const exec = util.promisify(require('child_process').exec);
+
+            async function lsExample() {
+                var command = "./commands/creategroup.sh " + process.env.PROJECT_PATH + " " + r;
+                console.log(command);
+                const { stdout, stderr } = await exec(command);
+                const data = await stdout
+                console.log('stdout:', data);
+                return data
+            }
+            lsExample().then(console.log("DONE"))
+        }
+
+    </script>
+</body>
+
+</html>

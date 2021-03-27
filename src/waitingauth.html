@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <title>GatherChain</title>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <div class="form-container open-folder-container">
+            <form id="login" class="open-folder-form">
+                <h1>Hello there!</h1>
+                <p>It seems you don't have a working directory yet.</p>
+                <button type="button" onClick="openFolder()">Open Folder</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openFolder() {
+            var alreadyProjectFile = ".gatherchain.json"
+            var fs = require('fs');
+            const { remote } = require('electron'),
+                dialog = remote.dialog,
+                WIN = remote.getCurrentWindow();
+
+            let options = {
+                // See place holder 1 in above image
+                title: "Open Project Folder",
+
+                // See place holder 2 in above image
+                defaultPath: `file://${__dirname}/`,
+
+                // See place holder 3 in above image
+                buttonLabel: "Open Folder",
+
+                // See place holder 4 in above image
+                filters: [
+                    { name: 'All Files', extensions: ['*'] }
+                ],
+                properties: ["openDirectory"]
+            }
+
+            //Synchronous
+            dialog.showOpenDialog(WIN, options).then((obj) => {
+                if (obj.canceled === false) {
+                    process.env.PROJECT_PATH = obj.filePaths;
+                    console.log(process.env.PROJECT_PATH);
+                    var files = fs.readdirSync(process.env.PROJECT_PATH);
+                    console.log(files)
+
+                    var i;
+                    for (i = 0; i < files.length; i++) {
+                        if (files[i] === alreadyProjectFile) {
+                            window.location = "home.html";
+                        }
+                        else {
+                            window.location = "create.html"
+                        }
+                    }
+                    
+                }
+                else {
+                    console.log("No Folder Chosen")
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
