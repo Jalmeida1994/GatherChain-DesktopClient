@@ -57,10 +57,18 @@
                             window.location = "home.html";
                         }
                         else {
-                            window.location = "create.html"
+                            const execSync = require('child_process').execSync;
+                            const output = execSync(`./commands/checkteam.sh`, { encoding: 'utf-8' });  // the default is 'buffer'
+                            console.log('Output was:\n', output);
+                            if (output != 0) {
+                                window.location = "home.html";
+                            }
+                            else {
+                                window.location = "create.html"
+                            }
                         }
                     }
-                    
+
                 }
                 else {
                     console.log("No Folder Chosen")

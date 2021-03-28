@@ -33,12 +33,14 @@ do
         echo $groupname
         i=$((i + 1));
         usernames=()
+        numbers=()
         echo $i
 
     else
         groupname="${groupname}-${student}"
         echo $groupname
         i=$((i + 1));
+        numbers+=${student}
         usernames+=($(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.GitHub'))
         echo $i
     fi
@@ -59,16 +61,17 @@ for student in $i
 do
     if [ $i -gt 1 ]
     then
-        curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/octocat/hello-world/collaborators/${usernames[${i}]}} -d '{"permission":"permission"}' 
+        curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/octocat/${groupname}/collaborators/${usernames[${i}]}} -d '{"permission":"permission"}' 
+    # Gets the authenticated GitHub user
+    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[${i}]}\",\"GitHub\":\"${usernames[${i}]}\",\"Group\":\"${username}\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
+        printf "Updated group for ${numbers[${i}]}!"
+    else
+        printf "Error updating group for the student ${numbers[${i}]}"
+    fi;
         i=$((i - 1));
         echo ${usernames[${i}]}
     fi
 done
-
-#echo ".app.env" >> .gitignore
-#echo ".token.env" >> .gitignore
-#echo ".number.env" >> .gitignore
-#echo "commands/" >> .gitignore
 
 cd $1
 #Inits local repo and adds ReadME.md
