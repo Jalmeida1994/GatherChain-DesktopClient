@@ -20,7 +20,7 @@ const createWindow = (): void => {
 };
 
 const getIfLogged = (): void => {
-  if ((fs.existsSync('../.number.env')) || (fs.existsSync('../.token.env'))) {
+  if ((fs.existsSync('.number.env')) && (fs.existsSync('.token.env'))) {
     // File exists in path
     isLogged();
   } else {
@@ -31,6 +31,8 @@ const getIfLogged = (): void => {
 
 const isNotLogged = (): void => {
   console.log('👋 Not logged');
+  console.log(`${__dirname}`);
+
   const mainWindow = new BrowserWindow({
     height: 700,
     width: 900,

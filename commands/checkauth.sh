@@ -37,6 +37,7 @@ takes_accesstoken () {
             printf "Student number already registered!"
         else
             registerStudentNumber ${accesstoken}
+        fi;
 }
 
 registerStudentNumber () {

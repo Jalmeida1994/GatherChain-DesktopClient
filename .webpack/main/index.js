@@ -1349,7 +1349,7 @@ var createWindow = function () {
     getIfLogged();
 };
 var getIfLogged = function () {
-    if ((fs_1.default.existsSync('../.number.env')) || (fs_1.default.existsSync('../.token.env'))) {
+    if ((fs_1.default.existsSync('.number.env')) && (fs_1.default.existsSync('.token.env'))) {
         // File exists in path
         isLogged();
     }
@@ -1360,6 +1360,7 @@ var getIfLogged = function () {
 };
 var isNotLogged = function () {
     console.log('👋 Not logged');
+    console.log("" + __dirname);
     var mainWindow = new electron_1.BrowserWindow({
         height: 700,
         width: 900,

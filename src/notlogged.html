@@ -92,14 +92,14 @@
             window.location = "waitingauth.html";
           }
           else {
-            window.location("notlogged.html")
+            window.location = "notlogged.html";
           }
         }).catch(res => {
           if (window.confirm("User did not activated the device")) {
             window.location = "notlogged.html";
           }
           else {
-            window.location("notlogged.html")
+            window.location = "notlogged.html";
           }
         })
         //lsExample().then(window.open("waitingauth.html"))
