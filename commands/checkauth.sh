@@ -43,7 +43,7 @@ takes_accesstoken () {
 registerStudentNumber () {
     # Gets the authenticated GitHub user
     username=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${1}" "https://api.github.com/user" | jq -r '.login')
-    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"GitHub\":\"${username}\",\"Group\":\"${username}\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
+    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"GitHub\":\"${username}\",\"Group\":\"0\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
         printf "Registered student number!"
     else
         printf "Error registering the student number"

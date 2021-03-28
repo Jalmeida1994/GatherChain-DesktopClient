@@ -12,8 +12,3 @@ source .token.env
 source .number.env
 
 curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.Group'
-
-# Step 1: App requests the user logged in
-RESPONSE=$(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.Group')
-
-printf $RESPONSE

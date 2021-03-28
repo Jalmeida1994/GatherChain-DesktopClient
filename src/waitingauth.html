@@ -61,9 +61,14 @@
                             const output = execSync(`./commands/checkteam.sh`, { encoding: 'utf-8' });  // the default is 'buffer'
                             console.log('Output was:\n', output);
                             if (output != 0) {
+                                console.log('not 0')
+                                const execSync = require('child_process').execSync;
+                                const output = execSync('./commands/clonerepo.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
+                                console.log('Output was:\n', output);
                                 window.location = "home.html";
                             }
                             else {
+                                console.log('it was 0')
                                 window.location = "create.html"
                             }
                         }
