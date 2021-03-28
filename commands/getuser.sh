@@ -11,8 +11,7 @@ source .app.env
 source .token.env
 source .number.env
 
-if curl --fail -i https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER}; then
-printf "Number exists"
-else
-printf "No student"
-fi;
+# Step 1: App requests the user logged in
+RESPONSE=$(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.GitHub')
+
+printf $RESPONSE

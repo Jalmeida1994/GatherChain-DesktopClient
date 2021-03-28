@@ -32,16 +32,17 @@ do
         groupname="${STU_NUMBER}"
         echo $groupname
         i=$((i + 1));
+        usernames=()
         echo $i
 
     else
         groupname="${groupname}-${student}"
         echo $groupname
         i=$((i + 1));
+        usernames+=($(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.GitHub'))
         echo $i
     fi
 done
-echo 'im here'
 
 if [ ${author} != ${STU_NUMBER} ]; then
     echo ERROR: That is not the registered student number.
@@ -54,7 +55,15 @@ echo "Creating the group's ${groupname} repository in the GitHub's user: ${usern
 curl -X POST -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN}  https://api.github.com/user/repos -d '{"name":"'"${groupname}"'"}'
 
 # Invites collaborators
-# curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/octocat/hello-world/collaborators/USERNAME -d '{"permission":"permission"}'
+for student in $i 
+do
+    if [ $i -gt 1 ]
+    then
+        curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/octocat/hello-world/collaborators/${usernames[${i}]}} -d '{"permission":"permission"}' 
+        i=$((i - 1));
+        echo ${usernames[${i}]}
+    fi
+done
 
 #echo ".app.env" >> .gitignore
 #echo ".token.env" >> .gitignore
