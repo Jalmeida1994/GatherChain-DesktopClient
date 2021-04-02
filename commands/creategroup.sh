@@ -41,7 +41,9 @@ do
         echo $groupname
         i=$((i + 1));
         numbers+=${student}
-        usernames+=($(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.GitHub'))
+        echo $numbers
+        usernames+=($(curl https://gatherchain-app.azurewebsites.net/users/${student} | jq -r '.GitHub'))
+        echo $usernames
         echo $i
     fi
 done
@@ -57,20 +59,18 @@ echo "Creating the group's ${groupname} repository in the GitHub's user: ${usern
 curl -X POST -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN}  https://api.github.com/user/repos -d '{"name":"'"${groupname}"'"}'
 
 # Invites collaborators
-for student in $i 
+echo "Total colaboradores: ${#usernames[@]}"
+for w in ${#usernames[@]}
 do
-    if [ $i -gt 1 ]
-    then
-        curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[${i}]}} -d '{"permission":"permission"}' 
+    echo "https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w-1]}}"
+    echo "Username: ${usernames[w-1]}"
+    curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w-1]}} -d '{"permission":"permission"}' 
     # Gets the authenticated GitHub user
-    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[${i}]}\",\"GitHub\":\"${usernames[${i}]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
-        printf "Updated group for ${numbers[${i}]}!"
+    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[w-1]}\",\"GitHub\":\"${usernames[w-1]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
+        printf "Updated group for ${numbers[w-1]}!"
     else
-        printf "Error updating group for the student ${numbers[${i}]}"
+        printf "Error updating group for the student ${numbers[w-1]}"
     fi;
-        i=$((i - 1));
-        echo ${usernames[${i}]}
-    fi
 done
 
 cd $1
@@ -99,7 +99,7 @@ cd ${cwd}
 #Requests to create the network with the first group 
 echo "Creating a new channel in the Blockchain Network. This may take a minute... or two..."
 
-if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"Commit\":\"${FIRST_GIT_HASH}\"}" https://gatherchain-app.azurewebsites.net/creategroup; then
+if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"Commit\":\"${FIRST_GIT_HASH}\"}" localhost:8010/creategroup; then
 printf "Created group: ${groupname}!"
 else
 printf "Error creating the group: ${groupname}!"
