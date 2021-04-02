@@ -61,9 +61,9 @@ for student in $i
 do
     if [ $i -gt 1 ]
     then
-        curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/octocat/${groupname}/collaborators/${usernames[${i}]}} -d '{"permission":"permission"}' 
+        curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[${i}]}} -d '{"permission":"permission"}' 
     # Gets the authenticated GitHub user
-    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[${i}]}\",\"GitHub\":\"${usernames[${i}]}\",\"Group\":\"${username}\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
+    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[${i}]}\",\"GitHub\":\"${usernames[${i}]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
         printf "Updated group for ${numbers[${i}]}!"
     else
         printf "Error updating group for the student ${numbers[${i}]}"
