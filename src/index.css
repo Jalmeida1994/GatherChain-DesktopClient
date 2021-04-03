@@ -16,6 +16,22 @@ body {
 	margin: -20px 0 50px;
 }
 
+header {
+   	width: 100%;
+	padding: 30px;
+	text-align: center;
+	background: #FF416C;
+	background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+	background: linear-gradient(to right, #FF4B2B, #FF416C);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0 0;
+   	left: 0px;
+   	margin-left: 0;  
+	color: #FFFFFF;
+	font-size: 30px;
+  }
+
 h1 {
 	font-weight: bold;
 	margin: 0;
