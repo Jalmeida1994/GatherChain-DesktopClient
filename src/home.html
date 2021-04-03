@@ -27,17 +27,23 @@
       }
     }
     console.log(output);
-    //$('#1').val('[' + outputText + ']');
 
-    ul = document.createElement('ul');
+    var ul = document.createElement('ul');
+    ul.className = "list-ic vertical";
 
     document.getElementById('1').appendChild(ul);
 
+    i = 1;
     output.forEach(function (item) {
+      let a = document.createElement('a');
+      let span = document.createElement('span');
       let li = document.createElement('li');
+      li.appendChild(span);
+      li.appendChild(a);
       ul.appendChild(li);
-
-      li.innerHTML += item;
+      span.innerHTML = i;
+      i++;
+      a.innerHTML += " " + item;
     });
     //document.getElementById("1").innerHTML = output;
   </script>

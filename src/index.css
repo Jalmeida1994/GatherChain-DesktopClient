@@ -239,6 +239,61 @@ input {
 	transform: translateX(20%);
 }
 
+.list-ic a {
+  color: #788288;
+  text-decoration: none;
+}
+.list-ic li {
+  position: relative;
+}
+.list-ic li span {
+  display: inline-block;
+  font-weight: 800;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  line-height: 2em;
+  border-radius: 1em;
+  background: #FF4B2B;
+  color: white;
+  position: relative;
+}
+.list-ic li::before {
+  content: '';
+  position: absolute;
+  background: #FF4B2B;
+  z-index: -1;
+}
+.list-ic.vertical {
+  padding: 0;
+  margin: 0;
+}
+.list-ic.vertical li {
+  list-style-type: none;
+  text-align: left;
+}
+.list-ic.vertical li span {
+  margin: 1.4em 0;
+}
+.list-ic.vertical li::before {
+  top: -35px;
+  left: 13px;
+  width: 0.2em;
+  height: 4em;
+}
+.list-ic li:first-child::before {
+  display: none;
+}
+.list-ic .active {
+  background: dodgerblue;
+}
+.list-ic .active ~ li {
+  background: lightblue;
+}
+.list-ic .active ~ li::before {
+  background: lightblue;
+}
+
 .social-container {
 	margin: 20px 0;
 }
