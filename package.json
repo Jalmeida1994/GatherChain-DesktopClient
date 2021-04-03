@@ -84,6 +84,7 @@
     "electron-prompt": "^1.6.0"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "jquery": "^3.6.0"
   }
 }

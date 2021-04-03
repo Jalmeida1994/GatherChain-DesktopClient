@@ -9,11 +9,37 @@
 </head>
 
 <body>
-  <h1 id="1">Welcome, Friend!</h1>
-  <p>Logged In</p>
+  <p id="1"></p>
+
+  <script>window.$ = window.jQuery = require('jquery');</script>
 
   <script>
-    document.getElementById("1").innerHTML = process.env.PROJECT_PATH;   
+    const execSync = require('child_process').execSync;
+    const res = execSync('./commands/history.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
+    var lines = res.split(/\n/);
+    var output = [];
+    var outputText = [];
+    for (var i = 0; i < lines.length; i++) {
+      // only push this line if it contains a non whitespace character.
+      if (/\S/.test(lines[i])) {
+        outputText.push('"' + $.trim(lines[i]) + '"');
+        output.push($.trim(lines[i]));
+      }
+    }
+    console.log(output);
+    //$('#1').val('[' + outputText + ']');
+
+    ul = document.createElement('ul');
+
+    document.getElementById('1').appendChild(ul);
+
+    output.forEach(function (item) {
+      let li = document.createElement('li');
+      ul.appendChild(li);
+
+      li.innerHTML += item;
+    });
+    //document.getElementById("1").innerHTML = output;
   </script>
 </body>
 

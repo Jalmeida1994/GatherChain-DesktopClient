@@ -107,5 +107,6 @@ if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${S
 printf "Created group: ${groupname}!"
 else
 printf "Error creating the group: ${groupname}!"
+# TODO: remove for tests
 source commands/clear.sh ${1}
 fi;
