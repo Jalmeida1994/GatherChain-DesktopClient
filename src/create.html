@@ -55,7 +55,21 @@
                 console.log('stdout:', data);
                 return data
             }
-            lsExample().then(console.log("DONE"))
+            lsExample().then(res => {
+                if (window.confirm(res)) {
+                    window.location = "home.html";
+                }
+                else {
+                    window.location = "create.html";
+                }
+            }).catch(res => {
+                if (window.confirm("Error creating the group.")) {
+                    window.location = "create.html";
+                }
+                else {
+                    window.location = "create.html";
+                }
+            })
         }
 
     </script>
