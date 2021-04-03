@@ -17,6 +17,7 @@ fi
 source .app.env
 source .token.env
 source .number.env
+source .admin.env
 
 # Getting the authenticated user's username
 username=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user" | jq -r '.login')
@@ -58,13 +59,16 @@ echo "Creating the group's ${groupname} repository in the GitHub's user: ${usern
 # Creates the GitHub Repo
 curl -X POST -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN}  https://api.github.com/user/repos -d '{"name":"'"${groupname}"'"}'
 
+# Invites the Admin
+curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${ADMIN_GITHUB}} -d '{"permission":"pull"}' 
+
 # Invites collaborators
 echo "Total colaboradores: ${#usernames[@]}"
 for w in ${#usernames[@]}
 do
     echo "https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w-1]}}"
     echo "Username: ${usernames[w-1]}"
-    curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w-1]}} -d '{"permission":"permission"}' 
+    curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w-1]}} -d '{"permission":"admin"}' 
     # Gets the authenticated GitHub user
     if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[w-1]}\",\"GitHub\":\"${usernames[w-1]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
         printf "Updated group for ${numbers[w-1]}!"
