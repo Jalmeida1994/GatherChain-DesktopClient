@@ -58,11 +58,11 @@
       window.location = "home.html";
     }
 
-    let h2 = document.createElement('h2');
-    document.getElementById('header').appendChild(h2);
+    let h2 = document.getElementById('header');
     const groupName = execSync('./commands/getgroup.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
     console.log("result: " + groupName);
-    h2.innerHTML = groupName;
+    //h2.innerHTML = groupName;
+    h2.innerHTML = "12345-54321-67890"
 
   </script>
 </body>

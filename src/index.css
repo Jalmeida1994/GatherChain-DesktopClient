@@ -18,7 +18,7 @@ body {
 
 header {
 	top: 0;
-	margin-top: 120px;
+	margin-top: 220px;
 	position: relative;	
 	width: 100%;
 	padding: 30px;
@@ -87,7 +87,7 @@ button {
   }
 
 .btn:hover {
-	background-color: rgb(160, 35, 13);
+	background-color: #FF416C;
 }
 
 button:hover {
