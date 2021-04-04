@@ -17,7 +17,10 @@ body {
 }
 
 header {
-   	width: 100%;
+	top: 0;
+	margin-top: 110px;
+	position: relative;	
+	width: 100%;
 	padding: 30px;
 	text-align: center;
 	background: #FF416C;
@@ -75,7 +78,7 @@ button {
 }
 
 .btn {
-	background-color: #FF4B2B;
+	background-color: #FF416C;
 	border: none;
 	color: white;
 	padding: 12px 16px;
@@ -83,6 +86,10 @@ button {
   }
 
 .btn:hover {
+	background-color: rgb(160, 35, 13);
+}
+
+button:hover {
 	background-color: #c22d12;
 }
 
