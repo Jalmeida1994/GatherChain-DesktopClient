@@ -11,7 +11,8 @@
 
 <body>
   <header class="header">
-    <h2 style="display: inline;">Header</h2><button class="btn" style="float: right"><i class="fa fa-refresh"></i></button>
+    <h2 style="display: inline;" id="header">Header</h2>
+    <button onClick="Refresh()" class="btn" style="float: right"><i class="fa fa-refresh"></i></button>
   </header>
 
 <div class="content">
@@ -52,7 +53,17 @@
       i++;
       a.innerHTML += " " + item;
     });
-    //document.getElementById("1").innerHTML = output;
+    
+    function Refresh() {
+      window.location = "home.html";
+    }
+
+    let h2 = document.createElement('h2');
+    document.getElementById('header').appendChild(h2);
+    const groupName = execSync('./commands/getgroup.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
+    console.log("result: " + groupName);
+    h2.innerHTML = groupName;
+
   </script>
 </body>
 
