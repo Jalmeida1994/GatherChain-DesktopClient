@@ -43,6 +43,9 @@
 
     i = 1;
     output.forEach(function (item) {
+      var res = output.split(" ");
+      var r = output.split(' ').slice(1).join(' ');
+      console.log("commit: " + res[0]);
       let a = document.createElement('a');
       let span = document.createElement('span');
       let li = document.createElement('li');
@@ -51,7 +54,7 @@
       ul.appendChild(li);
       span.innerHTML = i;
       i++;
-      a.innerHTML += " " + item;
+      a.innerHTML += " " + r;
     });
     
     function Refresh() {
