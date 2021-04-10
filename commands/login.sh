@@ -45,18 +45,18 @@ osType=$(uname)
 case "$osType" in
         "Darwin")
         {
-            echo ${usercode} | pbcopy
-            echo "${usercode} copied to clipboard."
+            printf ${usercode} | pbcopy
+            printf "${usercode} copied to clipboard."
             open https://github.com/login/device
         } ;;    
         "Linux")
         {
-            echo ${usercode} | xcopy
-            echo "${usercode} copied to clipboard."
+            printf ${usercode} | xcopy
+            printf "${usercode} copied to clipboard."
             xdg-open https://github.com/login/device
         } ;;
         *)
         {
-            echo "Please enter the code  ${usercode}  in a browser at https://github.com/login/device"
+            printf "Please enter the code  ${usercode}  in a browser at https://github.com/login/device"
         } ;;
     esac

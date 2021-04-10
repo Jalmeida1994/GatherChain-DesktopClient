@@ -23,6 +23,7 @@
 
   <script>
     const execSync = require('child_process').execSync;
+    const remoteURL = execSync('./commands/getremoteurl.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
     const res = execSync('./commands/history.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
     var lines = res.split(/\n/);
     var output = [];
@@ -45,7 +46,7 @@
     output.forEach(function (item) {
       var res = item.split(" ");
       var r = item.split(' ').slice(1).join(' ');
-      console.log("commit: " + res[0]);
+      console.log("commit: " + remoteURL + "/commit/" + res[0]);
       let a = document.createElement('a');
       let span = document.createElement('span');
       let li = document.createElement('li');
