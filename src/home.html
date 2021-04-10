@@ -46,14 +46,17 @@
     output.forEach(function (item) {
       var res = item.split(" ");
       var r = item.split(' ').slice(1).join(' ');
-      console.log("commit: " + remoteURL + "/commit/" + res[0]);
+      const url = remoteURL + "/commit/" + res[0];
       let a = document.createElement('a');
       let span = document.createElement('span');
       let li = document.createElement('li');
       li.appendChild(span);
       li.appendChild(a);
       ul.appendChild(li);
-      span.innerHTML = i;
+      span.onclick = function() {
+        window.open(url);
+      }
+      span.innerText = i;
       i++;
       a.innerHTML += " " + r;
     });
