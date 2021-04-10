@@ -302,6 +302,7 @@ input {
   background: #FF4B2B;
   color: white;
   position: relative;
+  cursor: pointer;
 }
 .list-ic li::before {
   content: '';
