@@ -5,6 +5,8 @@ source .app.env
 source .token.env
 source .number.env
 
+#cd $1
+
 username=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/user | jq -r '.login')
 
 echo "Pushing as student number: ${STU_NUMBER}"

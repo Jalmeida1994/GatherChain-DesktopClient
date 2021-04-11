@@ -23,13 +23,13 @@
       <ul class="fab-options">
         <li>
           <span class="fab-label">Pull</span>
-          <div class="fab-icon-holder">
+          <div class="fab-icon-holder" onclick="Pull()">
             <i class="fa fa-arrow-down"></i>
           </div>
         </li>
         <li>
           <span class="fab-label">Push</span>
-          <div class="fab-icon-holder">
+          <div class="fab-icon-holder" onclick="Push()">
             <i class="fa fa-arrow-up"></i>
           </div>
         </li>
@@ -82,6 +82,14 @@
 
     function Refresh() {
       window.location = "home.html";
+    }
+
+    function Pull() {
+      const groupName = execSync('./commands/pull.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
+    }
+
+    function Push() {
+      const groupName = execSync('./commands/push.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
     }
 
     let h2 = document.getElementById('header');
