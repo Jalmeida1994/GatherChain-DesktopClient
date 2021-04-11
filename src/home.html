@@ -15,8 +15,27 @@
     <button onClick="Refresh()" class="btn" style="float: right"><i class="fa fa-refresh"></i></button>
   </header>
 
-<div class="content">
-  <p id="1"></p>
+  <div class="content">
+    <div class="fab-container">
+      <div class="fab fab-icon-holder">
+        <i class="fa fa-code-fork"></i>
+      </div>
+      <ul class="fab-options">
+        <li>
+          <span class="fab-label">Pull</span>
+          <div class="fab-icon-holder">
+            <i class="fa fa-arrow-down"></i>
+          </div>
+        </li>
+        <li>
+          <span class="fab-label">Push</span>
+          <div class="fab-icon-holder">
+            <i class="fa fa-arrow-up"></i>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <p id="1"></p>
   </div>
 
   <script>window.$ = window.jQuery = require('jquery');</script>
@@ -53,14 +72,14 @@
       li.appendChild(span);
       li.appendChild(a);
       ul.appendChild(li);
-      span.onclick = function() {
+      span.onclick = function () {
         window.open(url);
       }
       span.innerText = i;
       i++;
       a.innerHTML += " " + r;
     });
-    
+
     function Refresh() {
       window.location = "home.html";
     }
