@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#cd $1
+cd $1
 
 #Prints the argument
 read -p 'Commit SHA to checkout: ' sha

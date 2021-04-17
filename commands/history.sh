@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#cd $1
+cd $1
 #if [ "$1" == "-diff" ]; then
 #git log -p
 #else

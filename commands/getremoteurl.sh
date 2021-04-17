@@ -2,7 +2,7 @@
 
 # Args: $1: Directory Path
 
-#cd $1
+cd $1
 
 #$remoteURL=git config --get remote.origin.url
 

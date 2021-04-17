@@ -109,4 +109,5 @@ else
 printf "Error creating the group: ${groupname}!"
 # TODO: remove for tests
 source commands/clear.sh ${1}
+exit "Error creating the group: ${groupname}!"
 fi;
