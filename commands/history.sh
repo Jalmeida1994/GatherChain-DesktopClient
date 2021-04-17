@@ -4,4 +4,4 @@
 #if [ "$1" == "-diff" ]; then
 #git log -p
 #else
-git log --pretty=format:'%H %h by %an, %ar, message: %s'
+git log --pretty=format:'%H %cN %h by %an, %ar, message: %s'

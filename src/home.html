@@ -11,6 +11,7 @@
 
 <body>
   <header class="header">
+    <button onClick="Back()" class="btn-back" style="float: left"><i class="fa fa-arrow-left"></i></button>
     <h2 style="display: inline;" id="header">Header</h2>
     <button onClick="Refresh()" class="btn" style="float: right"><i class="fa fa-refresh"></i></button>
   </header>
@@ -84,12 +85,81 @@
       window.location = "home.html";
     }
 
+    function Back() {
+      window.location = "waitingauth.html"
+    }
+
     function Pull() {
-      const groupName = execSync('./commands/pull.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
+      console.log(r);
+      const util = require('util');
+      const exec = util.promisify(require('child_process').exec);
+
+      async function lsExample() {
+        var command = './commands/pull.sh ' + process.env.PROJECT_PATH;
+        console.log(command);
+        const { stdout, stderr } = await exec(command);
+        const data = await stdout
+        console.log('stdout:', data);
+        return data
+      }
+      lsExample().then(res => {
+        Refresh()
+      }).catch(res => {
+        if (window.confirm("Error pulling changes.")) {
+          Refresh();
+        }
+        else {
+          Refresh();
+        }
+      })
     }
 
     function Push() {
-      const groupName = execSync('./commands/push.sh ' + process.env.PROJECT_PATH, { encoding: 'utf-8' });  // the default is 'buffer'
+      const prompt = require('electron-prompt');
+      prompt({
+        title: "Enter a message about the changes",
+        label: 'Commit Message:',
+        value: 'Changed something...',
+        inputAttrs: {
+          type: 'text',
+          required: true
+        },
+        type: 'input'
+      })
+        .then((r) => {
+          if (r === null) {
+            console.log('User Cancelled');
+          } else {
+            console.log('result', r);
+            commitAndPush(r);
+          }
+        })
+        .catch(console.error);
+    }
+
+    function commitAndPush(r) {
+      console.log(r);
+      const util = require('util');
+      const exec = util.promisify(require('child_process').exec);
+
+      async function lsExample() {
+        var command = './commands/push.sh ' + process.env.PROJECT_PATH + " " + r;
+        console.log(command);
+        const { stdout, stderr } = await exec(command);
+        const data = await stdout
+        console.log('stdout:', data);
+        return data
+      }
+      lsExample().then(res => {
+        Refresh()
+      }).catch(res => {
+        if (window.confirm("Error pushing changes.")) {
+          Refresh();
+        }
+        else {
+          Refresh();
+        }
+      })
     }
 
     let h2 = document.getElementById('header');
