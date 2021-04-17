@@ -5,7 +5,7 @@ source .app.env
 source .token.env
 source .number.env
 
-#cd $2
+#cd $1
 
 username=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/user | jq -r '.login')
 
@@ -16,7 +16,8 @@ git config user.name "${STU_NUMBER}"
 git add .
 
 #First commit to master branch
-git commit -m "${STU_NUMBER}: ${1}"
+echo "${@:2}"
+git commit -m "${STU_NUMBER}: ${@:2}"
 git branch -M master
 
 #Saves Commit id and prints to console
@@ -24,7 +25,7 @@ GIT_HASH=$(git log --pretty=format:'%h' -n 1)
 echo "Git Hash: ${GIT_HASH}"
 
 #Gets the name of the repo by getting the URL of the remote
-URL=$(git remote get-url origin)
+URL=$(git remote get-url DesktopClient)
 GRP_NAME=$(basename $URL .git)
 
 # Checks if user trying to push is part of the group TODO
@@ -37,9 +38,11 @@ echo "Pushing the commit hash to the blockchain network in group ${GRP_NAME}..."
 #printf "Hash ${GIT_HASH} commited to the Network! Pushing to remote repo."
 #Add the remote repo to the .git and pushes
 git pull
-git push -u origin master
+git push -u DesktopClient master
+git config user.name "${username}" 
 #else
 #printf "Error pushing the latest commit to the network: ${GIT_HASH}!"
 #git reset --soft HEAD~1
+#git config user.name "${username}" 
 #fi;
 

@@ -103,7 +103,7 @@
         return data
       }
       lsExample().then(res => {
-          Refresh()
+        Refresh()
       }).catch(res => {
         if (window.confirm("Error pulling changes.")) {
           Refresh();
@@ -143,7 +143,7 @@
       const exec = util.promisify(require('child_process').exec);
 
       async function lsExample() {
-        var command = './commands/push.sh ' + r + " " + process.env.PROJECT_PATH;
+        var command = './commands/push.sh ' + process.env.PROJECT_PATH + " " + r;
         console.log(command);
         const { stdout, stderr } = await exec(command);
         const data = await stdout
@@ -151,13 +151,13 @@
         return data
       }
       lsExample().then(res => {
-         // Refresh()
+        Refresh()
       }).catch(res => {
         if (window.confirm("Error pushing changes.")) {
-        //  Refresh();
+          Refresh();
         }
         else {
-        //  Refresh();
+          Refresh();
         }
       })
     }
