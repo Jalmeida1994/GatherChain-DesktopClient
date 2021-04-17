@@ -98,8 +98,21 @@ button {
 	font-size: 16px;
 }
 
+.btn-back {
+	margin-top: 12px;
+	background-color: #FF4B2B;
+	border: none;
+	color: white;
+	padding: 12px 16px;
+	font-size: 16px;
+}
+
 .btn:hover {
 	background-color: #FF416C;
+}
+
+.btn-back:hover {
+	background-color: #FF4B2B;
 }
 
 button:hover {
