@@ -18,7 +18,7 @@ git config user.name "${ADMIN_GITHUB}"
 git add .
 
 #First commit to master branch
-echo "${STU_NUMBER}: ${@:2}"
+echo "${STU_NUMBER}- ${@:2}"
 message=${@:2}
 git commit -m "${STU_NUMBER}: ${message}"
 git branch -M master
@@ -37,16 +37,16 @@ members=$(echo $GRP_NAME | tr "-" "\n")
 #Requests to create the network with the first group 
 echo "Pushing the commit hash to the blockchain network in group ${GRP_NAME}..."
 
-#if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${GRP_NAME}\",\"Commit\":\"${GIT_HASH}\"}" https://gatherchain-app.azurewebsites.net/push; then
-#printf "Hash ${GIT_HASH} commited to the Network! Pushing to remote repo."
+if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${GRP_NAME}\",\"Commit\":\"${GIT_HASH}\"}" https://gatherchain-app.azurewebsites.net/push; then
+printf "Hash ${GIT_HASH} commited to the Network! Pushing to remote repo."
 #Add the remote repo to the .git and pushes
 git config pull.rebase false
 git pull
 git push -u DesktopClient master
-#else
-#printf "Error pushing the latest commit to the network: ${GIT_HASH}!"
-#git reset --soft HEAD~1
-#fi;
+else
+printf "Error pushing the latest commit to the network: ${GIT_HASH}!"
+git reset --soft HEAD~1
+fi;
 
 git config author.name "${username}" 
 git config user.name "${username}"

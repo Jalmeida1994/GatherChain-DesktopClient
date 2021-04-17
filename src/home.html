@@ -65,20 +65,43 @@
     i = 1;
     output.forEach(function (item) {
       var res = item.split(" ");
-      var r = item.split(' ').slice(1).join(' ');
+      var r = item.split(' ').slice(2).join(' ');
       const url = remoteURL + "/commit/" + res[0];
-      let a = document.createElement('a');
-      let span = document.createElement('span');
-      let li = document.createElement('li');
-      li.appendChild(span);
-      li.appendChild(a);
-      ul.appendChild(li);
-      span.onclick = function () {
-        window.open(url);
+
+      const verification = execSync('./commands/verifycommit.sh ' + res[1], { encoding: 'utf-8' });  // the default is 'buffer'
+      console.log("result: " + verification);
+      if (verification == 1) {
+        console.log('verified')
+        let a = document.createElement('a');
+        let span = document.createElement('span');
+        let li = document.createElement('li');
+        li.appendChild(span);
+        li.appendChild(a);
+        ul.appendChild(li);
+        span.onclick = function () {
+          window.open(url);
+        }
+        span.innerText = i;
+        i++;
+        a.innerHTML += " " + r;
       }
-      span.innerText = i;
-      i++;
-      a.innerHTML += " " + r;
+      else {
+        console.log('not verified')
+        let a = document.createElement('a');
+        let span = document.createElement('span');
+        let li = document.createElement('li');
+        li.appendChild(span);
+        li.appendChild(a);
+        ul.appendChild(li);
+        span.onclick = function () {
+          window.open(url);
+        }
+        span.innerText = i;
+        i++;
+        a.style.color = '#FF4B2B'
+        a.style.fontSize = '14px'
+        a.innerHTML += " Commit Not Verified: " + r;
+      }
     });
 
     function Refresh() {

@@ -12,8 +12,10 @@ source .number.env
 #else
 #printf "Error creating the group: ${2}!"
 #fi;
+verification=$(./commands/verifycommit.sh adminGitHubUsername)
 
-echo "${STU_NUMBER}: ${@:2}"
-message=${@:2}
-git commit -m "${STU_NUMBER}: ${message}"
-git branch -M master
+if [ verification = "Commit Verified." ]; then
+    echo "Commit Verified."
+else
+    echo "Commit Not Verified."
+fi
