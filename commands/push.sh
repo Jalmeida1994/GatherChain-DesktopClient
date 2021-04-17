@@ -17,7 +17,8 @@ git add .
 
 #First commit to master branch
 echo "${STU_NUMBER}: ${@:2}"
-git commit -m "${STU_NUMBER}: ${@:2}"
+message=${@:2}
+git commit -m "${STU_NUMBER}: ${message}"
 git branch -M master
 
 #Saves Commit id and prints to console
