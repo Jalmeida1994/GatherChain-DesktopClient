@@ -49,6 +49,6 @@ git push -u DesktopClient master
 #fi;
 
 git config author.name "${username}" 
-git config commiter.name "${username}"
+git config user.name "${username}"
 
 echo "done"
