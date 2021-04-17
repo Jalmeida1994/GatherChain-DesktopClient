@@ -16,7 +16,7 @@ git config user.name "${STU_NUMBER}"
 git add .
 
 #First commit to master branch
-echo "${@:2}"
+echo "${STU_NUMBER}: ${@:2}"
 git commit -m "${STU_NUMBER}: ${@:2}"
 git branch -M master
 
@@ -37,6 +37,7 @@ echo "Pushing the commit hash to the blockchain network in group ${GRP_NAME}..."
 #if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${GRP_NAME}\",\"Commit\":\"${GIT_HASH}\"}" https://gatherchain-app.azurewebsites.net/push; then
 #printf "Hash ${GIT_HASH} commited to the Network! Pushing to remote repo."
 #Add the remote repo to the .git and pushes
+git config pull.rebase false
 git pull
 git push -u DesktopClient master
 git config user.name "${username}" 
