@@ -12,7 +12,7 @@ username=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -u ${u
 
 echo "Pushing as student number: ${STU_NUMBER}"
 git config author.name "${STU_NUMBER}" 
-git config commiter.name "${ADMIN_GITHUB}"
+git config user.name "${ADMIN_GITHUB}"
 
 #Adds changes
 git add .
