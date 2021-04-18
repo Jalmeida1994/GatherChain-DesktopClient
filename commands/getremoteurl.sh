@@ -6,7 +6,7 @@ cd $1
 
 #$remoteURL=git config --get remote.origin.url
 
-remoteURL=$(git config --get remote.DesktopClient.url)
+remoteURL=$(git config --get remote.origin.url)
 
 url=${remoteURL%.git}
 

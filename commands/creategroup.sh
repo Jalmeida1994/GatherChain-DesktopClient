@@ -80,7 +80,8 @@ done
 cd $1
 #Inits local repo and adds ReadME.md
 git init
-git config user.name "${STU_NUMBER}"
+git config author.name "${STU_NUMBER}" 
+git config user.name "${ADMIN_GITHUB}"
 git add .
 
 echo "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"FirstCommit\":\"${FIRST_GIT_HASH}\"}" >> .gatherchain.json
@@ -103,11 +104,14 @@ cd ${cwd}
 #Requests to create the network with the first group 
 echo "Creating a new channel in the Blockchain Network. This may take a minute... or two..."
 
-if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"Commit\":\"${FIRST_GIT_HASH}\"}" localhost:8010/creategroup; then
+if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"Commit\":\"${FIRST_GIT_HASH}\"}" https://gatherchain-app.azurewebsites.net/creategroup; then
 printf "Created group: ${groupname}!"
 else
 printf "Error creating the group: ${groupname}!"
 # TODO: remove for tests
-source commands/clear.sh ${1}
-exit "Error creating the group: ${groupname}!"
+#source commands/clear.sh ${1}
+#exit "Error creating the group: ${groupname}!"
 fi;
+
+git config author.name "${username}" 
+git config user.name "${username}"

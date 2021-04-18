@@ -9,11 +9,12 @@
 
 <body>
     <div class="container" id="container">
-        <div class="form-container open-folder-container">
+        <div class="form-container open-folder-container"> 
             <form id="login" class="open-folder-form">
                 <h1>Almost there...</h1>
-                <p>It looks like this directory still hasn't been used for GatherChain</p>
-                <button type="button" onClick="createGroup()">Create Group</button>
+                <p id="change">It looks like this directory still hasn't been used for GatherChain</p>
+                <div id="spinner" class="loader"></div>
+                <button id="hide" type="button" onClick="createGroup()">Create Group</button>
             </form>
         </div>
     </div>
@@ -23,7 +24,7 @@
             const prompt = require('electron-prompt');
             prompt({
                 title: "Enter your colleagues numbers",
-                label: 'Colleagues numbers separated by WHITESPACE":',
+                label: 'Numbers separated by WHITESPACE":',
                 value: '11111 11111',
                 inputAttrs: {
                     type: 'text',
@@ -36,6 +37,7 @@
                         console.log('User Cancelled');
                     } else {
                         console.log('result', r);
+                        enableSpinner();
                         createGroupCommand(r);
                     }
                 })
@@ -72,6 +74,11 @@
             })
         }
 
+        function enableSpinner(){
+            document.getElementById('hide').style.display = 'none';
+            document.getElementById('change').innerHTML = 'Creating the group in the blockchain network.'
+            document.getElementById('spinner').style.display = 'block';
+        }
     </script>
 </body>
 
