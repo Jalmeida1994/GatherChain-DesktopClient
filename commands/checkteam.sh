@@ -13,4 +13,4 @@ source .number.env
 
 group=$(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.Group')
 
-printf group
+printf $group
