@@ -20,6 +20,7 @@
 
     <script>
         function openFolder() {
+            const homedir = require('os').homedir();
             var alreadyProjectFile = ".gatherchain.json"
             var fs = require('fs');
             const { remote } = require('electron'),
@@ -31,7 +32,7 @@
                 title: "Open Project Folder",
 
                 // See place holder 2 in above image
-                defaultPath: `file://${__dirname}/`,
+                defaultPath: `file://${homedir}/`,
 
                 // See place holder 3 in above image
                 buttonLabel: "Open Folder",

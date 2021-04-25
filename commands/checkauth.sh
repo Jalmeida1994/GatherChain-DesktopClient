@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Continuation of login.sh
-source .app.env
-source .devicecode.env
-source .number.env
+source ${1}/../.app.env
+source ${1}/../.devicecode.env
+source ${1}/../.number.env
 
 # Aux func to check if user already authorized the device: it waits 5s and if error tries again...
 i=0;
@@ -32,7 +32,7 @@ takes_accesstoken () {
         # Cuts down to the acess token
         resp=${RESPAUTH#*access_token=}
         accesstoken=${resp%%&scope=*}
-        echo "export ACCESS_TOKEN=${accesstoken}" >> .token.env
+        echo "export ACCESS_TOKEN=${accesstoken}" >> ${1}/../.token.env
         if curl --fail -X GET curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER}; then
             printf "Student number already registered!"
         else

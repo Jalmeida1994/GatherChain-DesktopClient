@@ -22,11 +22,13 @@ const createWindow = () => {
 };
 
 const getIfLogged = () => {
-  if ((fs.existsSync('.number.env')) && (fs.existsSync('.token.env'))) {
+  if ((fs.existsSync(`${__dirname}/../.number.env`)) && (fs.existsSync(`${__dirname}/../.token.env`))) {
     // File exists in path
+    console.log(`${__dirname}/../` + " logged")
     isLogged();
   } else {
-    // File doesn't exist in path
+    console.log(`${__dirname}/../` + " not logged")
+        // File doesn't exist in path
     isNotLogged();
   }
 }

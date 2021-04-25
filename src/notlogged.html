@@ -51,6 +51,9 @@
       if (isNaN(x)) {
         text = "Input not valid, must be a number.";
         document.getElementById("notvalid").innerHTML = text;
+      } else if (x.length < 1 || x.length > 10) {
+        text = "Input not valid, must have length between 1 and 10 numbers.";
+        document.getElementById("notvalid").innerHTML = text;
       } else {
         //const util = require('util');
         //const exec = util.promisify(require('child_process').exec);
@@ -64,7 +67,7 @@
         //window.location="waitingauth.html";
         console.log(`${__dirname}`);
         const execSync = require('child_process').execSync;
-        const output = execSync(`${__dirname}/../commands/login.sh ${x}`, { encoding: 'utf-8' });  // the default is 'buffer'
+        const output = execSync(`${__dirname}/../commands/login.sh ${x} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
         console.log('Output was:\n', output);
 
         const execSync2 = require('child_process').execSync;
@@ -84,7 +87,7 @@
         const exec = util.promisify(require('child_process').exec);
 
         async function lsExample() {
-          const { stdout, stderr } = await exec(`${__dirname}/../commands/checkauth.sh`);
+          const { stdout, stderr } = await exec(`${__dirname}/../commands/checkauth.sh ${__dirname}`);
           const data = await stdout
           console.log('stdout:', data);
           return data
