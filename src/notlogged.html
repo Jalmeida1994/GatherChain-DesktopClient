@@ -62,12 +62,13 @@
         //  }
         //lsExample();
         //window.location="waitingauth.html";
+        console.log(`${__dirname}`);
         const execSync = require('child_process').execSync;
-        const output = execSync(`./commands/login.sh ${x}`, { encoding: 'utf-8' });  // the default is 'buffer'
+        const output = execSync(`${__dirname}/../commands/login.sh ${x}`, { encoding: 'utf-8' });  // the default is 'buffer'
         console.log('Output was:\n', output);
 
         const execSync2 = require('child_process').execSync;
-        const output2 = execSync2(`./usercode.sh`, { encoding: 'utf-8' });  // the default is 'buffer'
+        const output2 = execSync2(`${__dirname}/../usercode.sh`, { encoding: 'utf-8' });  // the default is 'buffer'
         console.log('Output was:\n', output2);
 
         window.requestAnimationFrame(() => {
@@ -83,7 +84,7 @@
         const exec = util.promisify(require('child_process').exec);
 
         async function lsExample() {
-          const { stdout, stderr } = await exec(`./commands/checkauth.sh`);
+          const { stdout, stderr } = await exec(`${__dirname}/../commands/checkauth.sh`);
           const data = await stdout
           console.log('stdout:', data);
           return data

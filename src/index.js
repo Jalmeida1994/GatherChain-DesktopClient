@@ -1,13 +1,15 @@
-import { app, BrowserWindow } from 'electron';
-import fs from 'fs';
-declare const MAIN_WINDOW_WEBPACK_ENTRY: any;
+const electron = require("electron");
+const {app, BrowserWindow} = electron;
+const fs = require('fs');
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
 }
 
-const createWindow = (): void => {
+
+const createWindow = () => {
   // Create the browser window.
 
   // and load the index.html of the app.
@@ -19,7 +21,7 @@ const createWindow = (): void => {
   getIfLogged();
 };
 
-const getIfLogged = (): void => {
+const getIfLogged = () => {
   if ((fs.existsSync('.number.env')) && (fs.existsSync('.token.env'))) {
     // File exists in path
     isLogged();
@@ -29,7 +31,7 @@ const getIfLogged = (): void => {
   }
 }
 
-const isNotLogged = (): void => {
+const isNotLogged = () => {
   console.log('👋 Not logged');
   console.log(`${__dirname}`);
 
@@ -38,18 +40,19 @@ const isNotLogged = (): void => {
     width: 900,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       enableRemoteModule: true
     }
   });
 
-  mainWindow.loadURL(`file://${__dirname}/../../src/notlogged.html`);
+  mainWindow.loadURL(`file://${__dirname}/../src/notlogged.html`);
 
   mainWindow.webContents.openDevTools();
 
 
 }
 
-const isLogged = (): void => {
+const isLogged = () => {
   console.log('👋 Logged');
   console.log(`${__dirname}`);
 
@@ -58,11 +61,12 @@ const isLogged = (): void => {
     width: 900,
     webPreferences: {
       nodeIntegration: true,
+      contextIsolation: false,
       enableRemoteModule: true
     }
   });
 
-  mainWindow.loadURL(`file://${__dirname}/../../src/waitingauth.html`);
+  mainWindow.loadURL(`file://${__dirname}/../src/waitingauth.html`);
 
   mainWindow.webContents.openDevTools();
 
