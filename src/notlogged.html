@@ -41,6 +41,8 @@
   </footer>
 
   <script>
+    var fs = require('fs');
+
     function Login() {
       var x, text;
 
@@ -95,20 +97,42 @@
           return data
         }
         lsExample().then(res => {
-          if (window.confirm(res)) {
+          if (window.confirm("Student registered successfully")) {
+            res
             window.location = "waitingauth.html";
           }
           else {
+            deleteNumber()
             window.location = "notlogged.html";
           }
         }).catch(res => {
-          if (window.confirm(res)) {
+          if (window.confirm("Error registering student")) {
+            deleteNumber()
             window.location = "notlogged.html";
           }
           else {
+            deleteNumber()
             window.location = "notlogged.html";
           }
         })
+        
+
+        function deleteNumber() {
+          var filepath = `${__dirname}/../.number.env`;// Previously saved path somewhere
+
+          if (fs.existsSync(filepath)) {
+            fs.unlink(filepath, (err) => {
+              if (err) {
+                alert("An error ocurred updating the file" + err.message);
+                console.log(err);
+                return;
+              }
+              console.log("File succesfully deleted");
+            });
+          } else {
+            alert("This file doesn't exist, cannot delete");
+          }
+        }
         //lsExample().then(window.open("waitingauth.html"))
       }
     }
