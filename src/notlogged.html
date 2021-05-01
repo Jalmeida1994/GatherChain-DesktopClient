@@ -98,7 +98,7 @@
         }
         lsExample().then(res => {
           if (window.confirm("Student registered successfully")) {
-            res
+            createToken(res)
             window.location = "waitingauth.html";
           }
           else {
@@ -115,7 +115,6 @@
             window.location = "notlogged.html";
           }
         })
-        
 
         function deleteNumber() {
           var filepath = `${__dirname}/../.number.env`;// Previously saved path somewhere
@@ -132,6 +131,17 @@
           } else {
             alert("This file doesn't exist, cannot delete");
           }
+        }
+
+        function createToken(token) {
+          var fileName = `${__dirname}/../.token.env`;
+
+          fs.writeFile(fileName, token, (err) => {
+            if (err) {
+              alert("An error ocurred creating the file " + err.message)
+            }
+            alert("The file has been succesfully saved");
+          });
         }
         //lsExample().then(window.open("waitingauth.html"))
       }
