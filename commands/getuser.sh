@@ -7,9 +7,9 @@ elif [[ ! -e ".number.env" ]] || [[ ! -f ".number.env" ]]; then
 fi
 
 #Set env variables such as GitHub TOKEN
-source .app.env
-source .token.env
-source .number.env
+source ${1}/../.app.env
+source ${1}/../.token.env
+source ${1}/../.number.env
 
 # Step 1: App requests the user logged in
 RESPONSE=$(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.GitHub')

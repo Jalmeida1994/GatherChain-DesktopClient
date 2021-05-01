@@ -3,7 +3,7 @@
 # Args: $1: Directory Path
 #       $2+: Student numbers of the rest of the group;
 
-cwd=$(pwd)
+cwd=${1}
 
 if [[ ! -e ".token.env" ]] || [[ ! -f ".token.env" ]]; then
     echo ERROR: User not logged yet. Please try to login.
@@ -14,10 +14,10 @@ elif [[ ! -e ".number.env" ]] || [[ ! -f ".number.env" ]]; then
 fi
 
 #Set env variables such as GitHub TOKEN
-source .app.env
-source .token.env
-source .number.env
-source .admin.env
+source ${1}/../.app.env
+source ${1}/../.token.env
+source ${1}/../.number.env
+source ${1}/../.admin.env
 
 # Getting the authenticated user's username
 username=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user" | jq -r '.login')
@@ -77,7 +77,7 @@ do
     fi;
 done
 
-cd $1
+cd $2
 #Inits local repo and adds ReadME.md
 git init
 git config author.name "${STU_NUMBER}" 
@@ -100,6 +100,9 @@ git push -u origin master
 FIRST_GIT_HASH=$(git log --pretty=format:'%h' -n 1)
 echo "First hash: ${FIRST_GIT_HASH}"
 
+git config author.name "${username}" 
+git config user.name "${username}"
+
 cd ${cwd}
 #Requests to create the network with the first group 
 echo "Creating a new channel in the Blockchain Network. This may take a minute... or two..."
@@ -109,9 +112,7 @@ printf "Created group: ${groupname}!"
 else
 printf "Error creating the group: ${groupname}!"
 # TODO: remove for tests
-source commands/clear.sh ${1}
+source ${1}/../commands/clear.sh ${1} ${2}
 exit "Error creating the group: ${groupname}!"
 fi;
 
-git config author.name "${username}" 
-git config user.name "${username}"

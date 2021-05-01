@@ -89,22 +89,24 @@
         async function lsExample() {
           const { stdout, stderr } = await exec(`${__dirname}/../commands/checkauth.sh ${__dirname}`);
           const data = await stdout
+          const data2 = await stderr
           console.log('stdout:', data);
+          console.log('stderr:', data2);
           return data
         }
         lsExample().then(res => {
           if (window.confirm(res)) {
-            window.location = "waitingauth.html";
+            //window.location = "waitingauth.html";
           }
           else {
-            window.location = "notlogged.html";
+            //window.location = "notlogged.html";
           }
         }).catch(res => {
-          if (window.confirm("User did not activated the device")) {
-            window.location = "notlogged.html";
+          if (window.confirm(res)) {
+            //window.location = "notlogged.html";
           }
           else {
-            window.location = "notlogged.html";
+            //window.location = "notlogged.html";
           }
         })
         //lsExample().then(window.open("waitingauth.html"))

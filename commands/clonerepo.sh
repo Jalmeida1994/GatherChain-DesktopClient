@@ -11,9 +11,9 @@ elif [[ ! -e ".number.env" ]] || [[ ! -f ".number.env" ]]; then
 fi
 
 #Set env variables such as GitHub TOKEN
-source .app.env
-source .token.env
-source .number.env
+source ${2}/../.source .app.env
+source ${2}/../.token.env
+source ${2}/../.number.env
 
 usernameGroup=$(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.Group')
 repoName=$(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER} | jq -r '.GroupName')

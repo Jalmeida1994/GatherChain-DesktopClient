@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #Set env variables such as GitHub TOKEN
-source .app.env
-source .token.env
-source .number.env
-source .admin.env
+source ${1}/../.app.env
+source ${1}/../.token.env
+source ${1}/../.number.env
+source ${1}/../.admin.env
 
-cd $1
+cd $2
 
 username=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/user | jq -r '.login')
 

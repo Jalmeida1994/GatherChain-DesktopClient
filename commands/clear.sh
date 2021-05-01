@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source .app.env 
-source .number.env 
-source .token.env 
+source ${1}/../.app.env 
+source ${1}/../.number.env 
+source ${1}/../.token.env 
 
-cd $1
+cd $2
 #Gets the name of the repo by getting the URL of the remote
 URL=$(git remote get-url origin)
 GRP_NAME=$(basename $URL .git)
