@@ -6,9 +6,27 @@ source ${1}/../.token.env
 source ${1}/../.number.env
 source ${1}/../.admin.env
 
+parse_json()
+{
+    echo $1 | \
+    sed -e 's/[{}]/''/g' | \
+    sed -e 's/", "/'\",\"'/g' | \
+    sed -e 's/" ,"/'\",\"'/g' | \
+    sed -e 's/" , "/'\",\"'/g' | \
+    sed -e 's/","/'\"---SEPERATOR---\"'/g' | \
+    awk -F=':' -v RS='---SEPERATOR---' "\$1~/\"$2\"/ {print}" | \
+    sed -e "s/\"$2\"://" | \
+    tr -d "\n\t" | \
+    sed -e 's/\\"/"/g' | \
+    sed -e 's/\\\\/\\/g' | \
+    sed -e 's/^[ \t]*//g' | \
+    sed -e 's/^"//'  -e 's/"$//'
+}
+
 cd $2
 
-username=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/user | jq -r '.login')
+jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/user)# | jq -r '.login')
+username=$(parse_json "${jsonRes}" login)
 
 echo "Pushing as student number: ${STU_NUMBER}"
 git config author.name "${STU_NUMBER}" 
