@@ -5,7 +5,7 @@
 
 # Args: $1: Author's student number; 
 
-if [[ -s ".number.env" ]]; then
+if [[ -s "${2}/../.number.env" ]]; then
     echo "Student number already registered."
 elif [ $# -eq 0 ] || [ $# -gt 2 ]; then
     echo ERROR: Incorrect number of arguments. To register number insert 1 argument representing student number

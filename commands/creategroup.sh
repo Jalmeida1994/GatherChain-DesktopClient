@@ -5,14 +5,6 @@
 
 cwd=${1}
 
-if [[ ! -e ".token.env" ]] || [[ ! -f ".token.env" ]]; then
-    echo ERROR: User not logged yet. Please try to login.
-    exit 1 # terminate and indicate error
-elif [[ ! -e ".number.env" ]] || [[ ! -f ".number.env" ]]; then
-    echo ERROR: User not registered student number yet. Please try to register yout student number.
-    exit 1 # terminate and indicate error
-fi
-
 parse_json()
 {
     echo $1 | \

@@ -63,9 +63,9 @@
                             console.log('Output was:\n', output);
                             if (output != 0) {
                                 console.log('not 0')
-                                const execSync = require('child_process').execSync;
-                            const output = execSync(`${__dirname}/../commands/clonerepo.sh ${process.env.PROJECT_PATH} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
-                                console.log('Output was:\n', output);
+                                const execSync2 = require('child_process').execSync;
+                            const output2 = execSync2(`${__dirname}/../commands/clonerepo.sh ${process.env.PROJECT_PATH} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
+                                console.log('Output was:\n', output2);
                                 window.location = "home.html";
                             }
                             else {
