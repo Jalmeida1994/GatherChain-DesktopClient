@@ -4,6 +4,7 @@
 source ${1}/../.app.env
 source ${1}/../.devicecode.env
 source ${1}/../.number.env
+source ${1}/../.weburl.env
 
 parse_json()
 {
@@ -26,12 +27,12 @@ registerStudentNumber () {
     # Gets the authenticated GitHub user
     jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${1}" "https://api.github.com/user") #| jq -r '.login')
     username=$(parse_json "${jsonRes}" login)
-    #if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"GitHub\":\"${username}\",\"Group\":\"0\",\"GroupName\":\"0\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
-        #printf "Registered student number!"
-    #else
-    #    printf "Error registering the student number"
-    #    exit 1 # terminate and indicate error
-    #fi;
+    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"GitHub\":\"${username}\",\"Group\":\"0\",\"GroupName\":\"0\"}" ${WEB_URL}/registernumber; then
+        printf "Registered student number!"
+    else
+        printf "Error registering the student number"
+        exit 1 # terminate and indicate error
+    fi;
 }
 
 
@@ -41,7 +42,7 @@ takes_accesstoken () {
         resp=${RESPAUTH#*access_token=}
         accesstoken=${resp%%&scope=*}
         echo "export ACCESS_TOKEN=${accesstoken}"
-        if curl --fail -X GET curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER}; then
+        if curl --fail -X GET curl ${WEB_URL}/users/${STU_NUMBER}; then
             printf "Student number already registered!"
             exit 1 # terminate and indicate error
         else

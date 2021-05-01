@@ -4,6 +4,8 @@
 source ${1}/../.app.env
 source ${1}/../.token.env
 source ${1}/../.number.env
+source ${1}/../.weburl.env
+
 
 parse_json()
 {
@@ -22,7 +24,7 @@ parse_json()
     sed -e 's/^"//'  -e 's/"$//'
 }
 
-jsonRes=$(curl https://gatherchain-app.azurewebsites.net/users/${STU_NUMBER})# | jq -r '.Group')
+jsonRes=$(curl ${WEB_URL}/users/${STU_NUMBER})# | jq -r '.Group')
 group=$(parse_json "${jsonRes}" Group)
 group=0
 printf $group

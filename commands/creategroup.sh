@@ -27,6 +27,8 @@ source ${1}/../.app.env
 source ${1}/../.token.env
 source ${1}/../.number.env
 source ${1}/../.admin.env
+source ${1}/../.weburl.env
+
 
 # Getting the authenticated user's username
 jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user")# | jq -r '.login')
@@ -53,7 +55,7 @@ do
         i=$((i + 1));
         numbers+=${student}
         echo $numbers
-        jsonResponse=($(curl https://gatherchain-app.azurewebsites.net/users/${student})# | jq -r '.GitHub'))
+        jsonResponse=($(curl ${WEB_URL}/users/${student})# | jq -r '.GitHub'))
         usernames+=$(parse_json "${jsonRes}" GitHub)
         echo $usernames
         echo $i
@@ -81,7 +83,7 @@ do
     echo "Username: ${usernames[w-1]}"
     curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w-1]}} -d '{"permission":"admin"}' 
     # Gets the authenticated GitHub user
-    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[w-1]}\",\"GitHub\":\"${usernames[w-1]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}" https://gatherchain-app.azurewebsites.net/registernumber; then
+    if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[w-1]}\",\"GitHub\":\"${usernames[w-1]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}" ${WEB_URL}/registernumber; then
         printf "Updated group for ${numbers[w-1]}!"
     else
         printf "Error updating group for the student ${numbers[w-1]}"
@@ -118,7 +120,7 @@ cd ${cwd}
 #Requests to create the network with the first group 
 echo "Creating a new channel in the Blockchain Network. This may take a minute... or two..."
 
-if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"Commit\":\"${FIRST_GIT_HASH}\"}" https://gatherchain-app.azurewebsites.net/creategroup; then
+if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"Commit\":\"${FIRST_GIT_HASH}\"}" ${WEB_URL}/creategroup; then
 printf "Created group: ${groupname}!"
 else
 printf "Error creating the group: ${groupname}!"
