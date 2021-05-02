@@ -28,7 +28,8 @@ registerStudentNumber () {
     jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${1}" "https://api.github.com/user") #| jq -r '.login')
     username=$(parse_json "${jsonRes}" login)
     if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"GitHub\":\"${username}\",\"Group\":\"0\",\"GroupName\":\"0\"}" ${WEB_URL}/registernumber; then
-        printf "Registered student number!"
+        #printf "Registered student number!"
+        sleep 1
     else
         printf "Error registering the student number"
         exit 1 # terminate and indicate error
