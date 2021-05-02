@@ -140,7 +140,7 @@
           var filepath = `${__dirname}/../usercode.sh`;// Previously saved path somewhere
 
           if (fs.existsSync(filepath)) {
-            fs.unlink(filepath, (err) => {
+            fs.truncate(filepath, 0, (err) => {
               if (err) {
                 alert("An error ocurred updating the file" + err.message);
                 console.log(err);

@@ -50,9 +50,11 @@
             const exec = util.promisify(require('child_process').exec);
 
             async function lsExample() {
-                const { stdout, stderr } = await exec(`${__dirname}/../commands/creategroup.sh  ${__dirname} ${process.env.PROJECT_PATH} ${r}`);
+                const { stdout, stderr } = await exec(`${__dirname}/../commands/creategroup.sh  '${__dirname}' '${process.env.PROJECT_PATH}' ${r}`);
                 const data = await stdout
+                const data2 = await stderr
                 console.log('stdout:', data);
+                console.log('stderr:', data2);
                 return data
             }
             lsExample().then(res => {
@@ -64,10 +66,12 @@
                 }
             }).catch(res => {
                 if (window.confirm("Error creating the group.")) {
-                    window.location = "create.html";
+                    console.log(res)
+                    //window.location = "create.html";
                 }
                 else {
-                    window.location = "create.html";
+                    console.log(res)
+                    //window.location = "create.html";
                 }
             })
         }
