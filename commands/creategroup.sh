@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Args: $1: Directory Path
-#       $2+: Student numbers of the rest of the group;
+# Args: $1: Command path
+#       $2: Git Directory Path
+#       $3+: Student numbers of the rest of the group;
 
 cwd=${1}
 
@@ -31,7 +32,7 @@ source ${1}/../.weburl.env
 
 
 # Getting the authenticated user's username
-jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user")  # | jq -r '.login')
+jsonRes=$(curl -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" https://api.github.com/user)
 username=$(parse_json "${jsonRes}" login)
 
 # Parsing the script's input
@@ -55,7 +56,7 @@ do
         i=$((i + 1));
         numbers+=( ${student} )
         echo $numbers
-        jsonResponse=$(curl ${WEB_URL}/users/${student})  # | jq -r '.GitHub'))
+        jsonResponse=$(curl ${WEB_URL}/users/${student})
         usernames+=( $(parse_json "${jsonRes}" GitHub) )
         echo $usernames
         echo $i
@@ -119,13 +120,13 @@ cd ${cwd}
 #Requests to create the network with the first group 
 echo "Creating a new channel in the Blockchain Network. This may take a minute... or two..."
 
-if [ curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"Commit\":\"${FIRST_GIT_HASH}\"}" ${WEB_URL}/creategroup ] 
-then
+url="${WEB_URL}/creategroup"
+body="{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"Commit\":\"${FIRST_GIT_HASH}\"}"
+if curl --fail -X POST -H "Content-Type: application/json" -d "${body}" "${url}"; then
 printf "Created group: ${groupname}!"
 else
-printf "Error creating the group: ${groupname}!"
-# TODO: remove for tests
-source ${1}/../commands/clear.sh ${1} ${2}
-exit "Error creating the group: ${groupname}!"
+source ${1}/../commands/clear.sh "${1}" "${2}"
+printf "Error creating the group: ${groupname}"
+exit 1 
 fi
 

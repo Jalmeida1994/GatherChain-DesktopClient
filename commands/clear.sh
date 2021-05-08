@@ -33,14 +33,10 @@ rm -fr .DS_Store
 rm -fr .gatherchain.json
 
 # Gets the authenticated GitHub user
-jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user")# | jq -r '.login')
+jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" https://api.github.com/user)
 username=$(parse_json "${jsonRes}" login)
 
 #Deletes Remote GitHub repo
-#curl -X DELETE -H "Authorization: token ${TOKEN}" https://api.github.com/repos/${username}/${GRP_NAME}
-
-# curl -X DELETE -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN}  https://api.github.com/user/repos -d '{"name":"'"${GRP_NAME}"'"}'
-
 curl -X DELETE -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/repos/${username}/${GRP_NAME}
 
 
