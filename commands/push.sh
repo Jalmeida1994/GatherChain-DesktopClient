@@ -37,8 +37,8 @@ git config user.name "${ADMIN_GITHUB}"
 git add -A
 
 #First commit to master branch
-echo "${STU_NUMBER}- ${@:2}"
-message=${@:2}
+echo "${STU_NUMBER}- ${@:3}"
+message=${@:3}
 git commit -m "${STU_NUMBER}: ${message}"
 git branch -M master
 
