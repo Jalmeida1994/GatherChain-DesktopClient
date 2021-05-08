@@ -58,7 +58,7 @@
                 return data
             }
             lsExample().then(res => {
-                if (window.confirm(res)) {
+                if (window.confirm("Group created successfully.")) {
                     window.location = "home.html";
                 }
                 else {
@@ -67,11 +67,11 @@
             }).catch(res => {
                 if (window.confirm("Error creating the group.")) {
                     console.log(res)
-                    //window.location = "create.html";
+                    window.location = "create.html";
                 }
                 else {
                     console.log(res)
-                    //window.location = "create.html";
+                    window.location = "create.html";
                 }
             })
         }

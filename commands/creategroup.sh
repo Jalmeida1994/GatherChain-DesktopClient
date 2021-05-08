@@ -66,7 +66,7 @@ done
 echo "Creating the group's ${groupname} repository in the GitHub's user: ${username}."
 
 # Creates the GitHub Repo
-curl -X POST -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN}  https://api.github.com/user/repos -d '{"name":"'"${groupname}"'"}'
+curl -X POST -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN}  https://api.github.com/user/repos -d '{"name":"'"${groupname}"'","private":"true"}'
 
 # Invites the Admin
 curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${ADMIN_GITHUB} -d '{"permission":"pull"}' 
