@@ -26,7 +26,7 @@ parse_json()
     sed -e 's/^"//'  -e 's/"$//'
 }
 
-jsonRes=$(curl ${WEB_URL}/users/${STU_NUMBER})# | jq -r '.Group')
+jsonRes=$(curl ${WEB_URL}/users/${STU_NUMBER})
 usernameGroup=$(parse_json "${jsonRes}" Group)
 repoName=$(parse_json "${jsonRes}" GroupName)
 

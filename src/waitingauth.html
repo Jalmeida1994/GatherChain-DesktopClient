@@ -19,9 +19,11 @@
     </div>
 
     <script>
+        var fs = require('fs');
+
         function openFolder() {
             const homedir = require('os').homedir();
-            var alreadyProjectFile = ".gatherchain.json"
+            var alreadyProjectFile = ".git"
             var fs = require('fs');
             const { remote } = require('electron'),
                 dialog = remote.dialog,
@@ -55,7 +57,22 @@
                     var i;
                     for (i = 0; i < files.length; i++) {
                         if (files[i] === alreadyProjectFile) {
-                            window.location = "home.html";
+                            const execSync = require('child_process').execSync;
+                            const output = execSync(`${__dirname}/../commands/checkgit.sh ${process.env.PROJECT_PATH} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
+                            console.log('Output was:\n', output);
+                            if (output != 0) {
+                                console.log('not 0')
+                                if (window.confirm("Folder already a git project.")) {
+                                    window.location = "waitingauth.html";
+                                }
+                                else {
+                                    window.location = "waitingauth.html";
+                                }
+                            }
+                            else {
+                                console.log('it was 0')
+                                window.location = "home.html"
+                            }
                         }
                         else {
                             const execSync = require('child_process').execSync;
@@ -64,7 +81,7 @@
                             if (output != 0) {
                                 console.log('not 0')
                                 const execSync2 = require('child_process').execSync;
-                            const output2 = execSync2(`${__dirname}/../commands/clonerepo.sh ${process.env.PROJECT_PATH} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
+                                const output2 = execSync2(`${__dirname}/../commands/clonerepo.sh ${process.env.PROJECT_PATH} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
                                 console.log('Output was:\n', output2);
                                 window.location = "home.html";
                             }
@@ -80,6 +97,7 @@
                     console.log("No Folder Chosen")
                 }
             })
+            //lsExample().then(window.open("waitingauth.html"))
         }
     </script>
 </body>

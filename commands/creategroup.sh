@@ -71,6 +71,15 @@ curl -X POST -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS
 # Invites the Admin
 curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${ADMIN_GITHUB} -d '{"permission":"pull"}' 
 
+# Updates group in redis
+url="${WEB_URL}/registernumber"
+body="{\"Author\":\"${STU_NUMBER}\",\"GitHub\":\"${username}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}"
+if curl --fail -X POST -H "Content-Type: application/json" -d "${body}" "${url}"; then
+    printf "Updated group for ${STU_NUMBER}!"
+else
+    printf "Error updating group for the student ${STU_NUMBER}"
+fi
+
 # Invites collaborators
 echo "Total colaboradores: ${#usernames[@]}"
 for w in ${!usernames[@]}
@@ -78,9 +87,9 @@ do
     echo "https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w]}"
     echo "Username: ${usernames[w]}"
     curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w]} -d '{"permission":"admin"}' 
-    # Gets the authenticated GitHub user
-    if [ curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[w]}\",\"GitHub\":\"${usernames[w]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}" ${WEB_URL}/registernumber ] 
-    then
+    # Updates group in redis
+    body="{\"Author\":\"${numbers[w]}\",\"GitHub\":\"${usernames[w]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}"
+    if curl --fail -X POST -H "Content-Type: application/json" -d "${body}" "${url}"; then
         printf "Updated group for ${numbers[w]}!"
     else
         printf "Error updating group for the student ${numbers[w]}"
@@ -96,9 +105,6 @@ git config user.name "${ADMIN_GITHUB}"
 git config --unset user.signingkey
 git config commit.gpgsign false
 git add -A
-
-#echo "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"FirstCommit\":\"${FIRST_GIT_HASH}\"}" >> .gatherchain.json
-#echo ".gatherchain.json" >> .gitignore
 
 #First commit to master branch
 git commit -m "Creating group"

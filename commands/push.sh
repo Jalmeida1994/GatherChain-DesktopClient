@@ -26,7 +26,7 @@ parse_json()
 
 cd $2
 
-jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/user)# | jq -r '.login')
+jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/user)
 username=$(parse_json "${jsonRes}" login)
 
 echo "Pushing as student number: ${STU_NUMBER}"
@@ -34,7 +34,7 @@ git config author.name "${STU_NUMBER}"
 git config user.name "${ADMIN_GITHUB}"
 
 #Adds changes
-git add .
+git add -A
 
 #First commit to master branch
 echo "${STU_NUMBER}- ${@:2}"

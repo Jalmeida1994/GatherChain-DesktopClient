@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 #Set env variables such as GitHub TOKEN
 source ${1}/../.app.env
 source ${1}/../.token.env
@@ -25,7 +24,7 @@ parse_json()
 }
 
 # Step 1: App requests the user logged in
-jsonRes=$(curl ${WEB_URL}/users/${STU_NUMBER})# | jq -r '.GitHub')
+jsonRes=$(curl ${WEB_URL}/users/${STU_NUMBER})
 gitHub=$(parse_json "${jsonRes}" GitHub)
 
 
