@@ -43,8 +43,8 @@
 
   <script>
     const execSync = require('child_process').execSync;
-    const remoteURL = execSync(`${__dirname}/../getremoteurl.sh ${process.env.PROJECT_PATH}`, { encoding: 'utf-8' });  // the default is 'buffer'
-    const res = execSync(`${__dirname}/../history.sh ${process.env.PROJECT_PATH}`, { encoding: 'utf-8' });  // the default is 'buffer'
+    const remoteURL = execSync(`${__dirname}/../commands/getremoteurl.sh ${process.env.PROJECT_PATH}`, { encoding: 'utf-8' });  // the default is 'buffer'
+    const res = execSync(`${__dirname}/../commands/history.sh ${process.env.PROJECT_PATH}`, { encoding: 'utf-8' });  // the default is 'buffer'
     var lines = res.split(/\n/);
     var output = [];
     var outputText = [];
@@ -68,7 +68,7 @@
       var r = item.split(' ').slice(2).join(' ');
       const url = remoteURL + "/commit/" + res[0];
 
-      const verification = execSync(`${__dirname}/../verifycommit.sh ${__dirname} ${res[1]}`, { encoding: 'utf-8' });  // the default is 'buffer'
+      const verification = execSync(`${__dirname}/../commands/verifycommit.sh ${__dirname} ${res[1]}`, { encoding: 'utf-8' });  // the default is 'buffer'
       console.log("result: " + verification);
       if (verification == 1) {
         console.log('verified')
