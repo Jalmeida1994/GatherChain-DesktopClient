@@ -93,6 +93,7 @@ git init
 git config author.name "${STU_NUMBER}" 
 git config user.name "${ADMIN_GITHUB}"
 git config --unset user.signingkey
+git config commit.gpgsign false
 git add -A
 
 #echo "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"FirstCommit\":\"${FIRST_GIT_HASH}\"}" >> .gatherchain.json
@@ -124,7 +125,7 @@ printf "Created group: ${groupname}!"
 else
 printf "Error creating the group: ${groupname}!"
 # TODO: remove for tests
-#source ${1}/../commands/clear.sh ${1} ${2}
+source ${1}/../commands/clear.sh ${1} ${2}
 exit "Error creating the group: ${groupname}!"
 fi
 
