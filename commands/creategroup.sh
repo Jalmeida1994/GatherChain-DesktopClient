@@ -53,10 +53,10 @@ do
         groupname="${groupname}-${student}"
         echo $groupname
         i=$((i + 1));
-        numbers+=${student}
+        numbers+=( ${student} )
         echo $numbers
         jsonResponse=$(curl ${WEB_URL}/users/${student})  # | jq -r '.GitHub'))
-        usernames+=$(parse_json "${jsonRes}" GitHub)
+        usernames+=( $(parse_json "${jsonRes}" GitHub) )
         echo $usernames
         echo $i
     fi
@@ -68,21 +68,21 @@ echo "Creating the group's ${groupname} repository in the GitHub's user: ${usern
 curl -X POST -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN}  https://api.github.com/user/repos -d '{"name":"'"${groupname}"'"}'
 
 # Invites the Admin
-curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${ADMIN_GITHUB}} -d '{"permission":"pull"}' 
+curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${ADMIN_GITHUB} -d '{"permission":"pull"}' 
 
 # Invites collaborators
-echo "Total colaboradores: ${#usernames[@:3]}"
-for w in ${#usernames[@]:3}
+echo "Total colaboradores: ${#usernames[@]}"
+for w in ${!usernames[@]}
 do
-    echo "https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w-1]}"
-    echo "Username: ${usernames[w-1]}"
-    curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w-1]} -d '{"permission":"admin"}' 
+    echo "https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w]}"
+    echo "Username: ${usernames[w]}"
+    curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w]} -d '{"permission":"admin"}' 
     # Gets the authenticated GitHub user
-    if [ curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[w-1]}\",\"GitHub\":\"${usernames[w-1]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}" ${WEB_URL}/registernumber ] 
+    if [ curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${numbers[w]}\",\"GitHub\":\"${usernames[w]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}" ${WEB_URL}/registernumber ] 
     then
-        printf "Updated group for ${numbers[w-1]}!"
+        printf "Updated group for ${numbers[w]}!"
     else
-        printf "Error updating group for the student ${numbers[w-1]}"
+        printf "Error updating group for the student ${numbers[w]}"
     fi
 done
 
@@ -92,6 +92,7 @@ cd $2
 git init
 git config author.name "${STU_NUMBER}" 
 git config user.name "${ADMIN_GITHUB}"
+git config --unset user.signingkey
 git add -A
 
 #echo "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${groupname}\",\"FirstCommit\":\"${FIRST_GIT_HASH}\"}" >> .gatherchain.json
