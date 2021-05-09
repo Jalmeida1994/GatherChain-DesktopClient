@@ -72,8 +72,16 @@
           document.getElementById("1").innerHTML = output2;
           document.getElementById("2").innerHTML = "Insert the code in https://github.com/login/device";
         });
+
+        showNotification();
         enableSpinner();
         CheckAuth();
+      }
+
+      function showNotification() {
+        const myNotification = new Notification('Code copied to clipboard.', {
+          body: 'Just paste the code in the GitHub prompt!'
+        })
       }
 
       function enableSpinner() {
