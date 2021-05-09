@@ -42,6 +42,7 @@
   <script>window.$ = window.jQuery = require('jquery');</script>
 
   <script>
+    const shell = require('electron').shell;
     const execSync = require('child_process').execSync;
     const remoteURL = execSync(`${__dirname}/../commands/getremoteurl.sh ${process.env.PROJECT_PATH}`, { encoding: 'utf-8' });  // the default is 'buffer'
     const res = execSync(`${__dirname}/../commands/history.sh ${process.env.PROJECT_PATH}`, { encoding: 'utf-8' });  // the default is 'buffer'
@@ -79,7 +80,8 @@
         li.appendChild(a);
         ul.appendChild(li);
         span.onclick = function () {
-          window.open(url);
+          shell.openExternal(url);
+          //window.open(url);
         }
         span.innerText = i;
         i++;
