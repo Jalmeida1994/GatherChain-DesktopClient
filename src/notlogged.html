@@ -15,10 +15,11 @@
       <form id="login" class="submit-form">
         <h1>Register Number</h1>
         <p></p>
-        <span>Use your student number for registration</span>
+        <span id="change">Use your student number for registration</span>
+        <div id="spinner" class="loader"></div>
         <p id="notvalid"></p>
         <input type="text" id="stunr" placeholder="Student Number" />
-        <button type="button" onClick="Login()">Connect to GitHub</button>
+        <button id="hide" type="button" onClick="Login()">Connect to GitHub</button>
       </form>
     </div>
     <div class="overlay-container">
@@ -57,16 +58,6 @@
         text = "Input not valid, must have length between 1 and 10 numbers.";
         document.getElementById("notvalid").innerHTML = text;
       } else {
-        //const util = require('util');
-        //const exec = util.promisify(require('child_process').exec);
-
-        //async function lsExample() {
-        //  const { stdout, stderr } = await exec(`./commands/login.sh ${x}`);
-        //  text = console.log('stdout:', stdout);
-        //console.error('stderr:', stderr);
-        //  }
-        //lsExample();
-        //window.location="waitingauth.html";
         console.log(`${__dirname}`);
         const execSync = require('child_process').execSync;
         const output = execSync(`${__dirname}/../commands/login.sh ${x} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
@@ -81,13 +72,22 @@
           document.getElementById("1").innerHTML = output2;
           document.getElementById("2").innerHTML = "Insert the code in https://github.com/login/device";
         });
-        CheckAuth()
+        enableSpinner();
+        CheckAuth();
+      }
+
+      function enableSpinner() {
+        let p = document.createElement('p');
+        document.getElementById('hide').style.display = 'none';
+        document.getElementById('stunr').style.display = 'none';
+        document.getElementById('change').innerHTML = 'Waiting for user to authenticate with GitHub.'
+        document.getElementById('change').appendChild(p);
+        document.getElementById('spinner').style.display = 'block';
       }
 
       function CheckAuth() {
         const util = require('util');
         const exec = util.promisify(require('child_process').exec);
-
         async function lsExample() {
           const { stdout, stderr } = await exec(`${__dirname}/../commands/checkauth.sh ${__dirname}`);
           const data = await stdout

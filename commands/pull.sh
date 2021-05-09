@@ -2,13 +2,10 @@
 
 cd $1
 
-#Prints the argument
-read -p 'Commit SHA to checkout: ' sha
+git reset --hard HEAD
 
-git config pull.rebase false
+git clean -f
 
-#Checkout the specified commit
-git checkout $sha
-
+git pull
 
 

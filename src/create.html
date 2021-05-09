@@ -55,7 +55,7 @@
                 const data2 = await stderr
                 console.log('stdout:', data);
                 console.log('stderr:', data2);
-                return data
+                return data2
             }
             lsExample().then(res => {
                 if (window.confirm("Group created successfully.")) {
@@ -67,11 +67,11 @@
             }).catch(res => {
                 if (window.confirm("Error creating the group.")) {
                     console.log(res)
-                    window.location = "create.html";
+                    //window.location = "create.html";
                 }
                 else {
                     console.log(res)
-                    window.location = "create.html";
+                    //window.location = "create.html";
                 }
             })
         }
