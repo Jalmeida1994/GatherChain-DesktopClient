@@ -50,7 +50,6 @@ const isNotLogged = () => {
 
   mainWindow.webContents.openDevTools();
 
-
 }
 
 const isLogged = () => {
@@ -67,10 +66,9 @@ const isLogged = () => {
     }
   });
 
-  mainWindow.loadURL(`file://${__dirname}/../src/waitingauth.html`);
+  mainWindow.loadURL(`file://${__dirname}/../src/home.html`);
 
   mainWindow.webContents.openDevTools();
-
 
 }
 
