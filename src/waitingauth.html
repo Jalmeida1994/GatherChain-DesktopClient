@@ -57,22 +57,8 @@
                     var i;
                     for (i = 0; i < files.length; i++) {
                         if (files[i] === alreadyProjectFile) {
-                            const execSync = require('child_process').execSync;
-                            const output = execSync(`${__dirname}/../commands/checkgit.sh ${process.env.PROJECT_PATH} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
-                            console.log('Output was:\n', output);
-                            if (output != 0) {
-                                console.log('not 0')
-                                if (window.confirm("Folder already a git project.")) {
-                                    window.location = "waitingauth.html";
-                                }
-                                else {
-                                    window.location = "waitingauth.html";
-                                }
-                            }
-                            else {
-                                console.log('it was 0')
+                            console.log("Chosen directory is a git project.")
                                 window.location = "home.html"
-                            }
                         }
                         else {
                             const execSync = require('child_process').execSync;
