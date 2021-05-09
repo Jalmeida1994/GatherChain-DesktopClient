@@ -29,6 +29,12 @@
           </div>
         </li>
         <li>
+          <span class="fab-label">Checkout</span>
+          <div class="fab-icon-holder" onclick="Checkout()">
+            <i class="fa fa-level-down"></i>
+          </div>
+        </li>
+        <li>
           <span class="fab-label">Push</span>
           <div class="fab-icon-holder" onclick="Push()">
             <i class="fa fa-arrow-up"></i>
@@ -112,6 +118,53 @@
 
     function Back() {
       window.location = "waitingauth.html"
+    }
+
+    function Checkout() {
+      const prompt = require('electron-prompt');
+      prompt({
+        title: "Enter the code of the commit you want to checkout",
+        label: "Commit's SHA code :",
+        value: 'b60560e',
+        inputAttrs: {
+          type: 'text',
+          required: true
+        },
+        type: 'input'
+      })
+        .then((r) => {
+          if (r === null) {
+            console.log('User Cancelled');
+          } else {
+            console.log('result', r);
+            checkoutCommand(r);
+          }
+        })
+        .catch(console.error);
+    }
+
+    function checkoutCommand(r) {
+      console.log(r);
+      const util = require('util');
+      const exec = util.promisify(require('child_process').exec);
+
+      async function lsExample() {
+        var command = `${__dirname}/../commands/checkout.sh ${process.env.PROJECT_PATH} ${r}`;
+        const { stdout, stderr } = await exec(command);
+        const data = await stdout
+        console.log('stdout:', data);
+        return data
+      }
+      lsExample().then(res => {
+        Refresh()
+      }).catch(res => {
+        if (window.confirm("Error checking out the commit.")) {
+          Refresh();
+        }
+        else {
+          Refresh();
+        }
+      })
     }
 
     function Pull() {

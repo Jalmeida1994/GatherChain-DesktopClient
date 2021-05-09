@@ -66,6 +66,9 @@ git push -u origin master
 else
 printf "Error pushing the latest commit to the network: ${GIT_HASH}!"
 git reset --soft HEAD~1
+git config author.name "${username}" 
+git config user.name "${username}"
+exit 1
 fi;
 
 git config author.name "${username}" 

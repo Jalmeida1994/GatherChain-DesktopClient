@@ -1,11 +1,8 @@
 #!/bin/bash
 
-cd $1
-
-#Prints the argument
-read -p 'Commit SHA to checkout: ' sha
+cd ${1}
 
 git config pull.rebase false
 
 #Checkout the specified commit
-git checkout $sha
+git checkout ${2}
