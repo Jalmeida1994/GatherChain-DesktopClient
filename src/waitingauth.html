@@ -58,7 +58,8 @@
                     for (i = 0; i < files.length; i++) {
                         if (files[i] === alreadyProjectFile) {
                             console.log("Chosen directory is a git project.")
-                            window.location = "home.html"
+                            window.location = "home.html";
+                            break;
                         }
                         else {
                             const execSync = require('child_process').execSync;
