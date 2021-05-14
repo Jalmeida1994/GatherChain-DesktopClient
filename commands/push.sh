@@ -26,7 +26,7 @@ parse_json()
 
 cd $2
 
-jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/user)
+jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" "https://api.github.com/user")
 username=$(parse_json "${jsonRes}" login)
 
 echo "Pushing as student number: ${STU_NUMBER}"

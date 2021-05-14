@@ -30,7 +30,7 @@ GRP_NAME=$(basename $URL .git)
 rm -fr .gitignore
 rm -fr .git
 rm -fr .DS_Store
-rm -fr .gatherchain.json
+
 
 # Gets the authenticated GitHub user
 jsonRes=$(curl --fail -X GET -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${ACCESS_TOKEN}" https://api.github.com/user)

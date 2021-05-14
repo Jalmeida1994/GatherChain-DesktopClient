@@ -81,7 +81,7 @@ else
 fi
 
 # Invites collaborators
-echo "Total colaboradores: ${#usernames[@]}"
+echo "Total colaborators: ${#usernames[@]}"
 for w in ${!usernames[@]}
 do
     echo "https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w]}"
