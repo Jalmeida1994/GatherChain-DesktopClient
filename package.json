@@ -1,6 +1,6 @@
 {
-  "name": "gatherchain",
-  "productName": "gatherchain",
+  "name": "GatherChain",
+  "productName": "GatherChain",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": "src/index.js",
@@ -24,7 +24,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "gatherchain"
+            "name": "GatherChain"
           }
         },
         {
