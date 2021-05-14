@@ -42,6 +42,7 @@
         </li>
       </ul>
     </div>
+    <div id="spinner" style="position: absolute; right: 3000px; left: 3000px; " class="loader"></div>
     <p id="1"></p>
   </div>
 
@@ -208,11 +209,18 @@
             console.log('User Cancelled');
           } else {
             console.log('result', r);
+            enableSpinner();
             commitAndPush(r);
           }
         })
         .catch(console.error);
     }
+
+    function enableSpinner() {
+        let p = document.createElement('p');
+        document.getElementById('1').style.display = 'none';
+        document.getElementById('spinner').style.display = 'block';
+      }
 
     function commitAndPush(r) {
       console.log(r);
@@ -230,7 +238,7 @@
       lsExample().then(res => {
         Refresh()
       }).catch(res => {
-        if (window.confirm("Error pushing changes.")) {
+        if (window.alert("Error pushing changes.")) {
           Refresh();
         }
         else {

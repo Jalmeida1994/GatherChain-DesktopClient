@@ -65,13 +65,13 @@
                     window.location = "create.html";
                 }
             }).catch(res => {
-                if (window.confirm("Error creating the group.")) {
+                if (window.alert("Error creating the group.")) {
                     console.log(res)
-                    //window.location = "create.html";
+                    window.location = "create.html";
                 }
                 else {
                     console.log(res)
-                    //window.location = "create.html";
+                    window.location = "create.html";
                 }
             })
         }

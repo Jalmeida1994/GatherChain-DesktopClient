@@ -9,14 +9,6 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 
 
 const createWindow = () => {
-  // Create the browser window.
-
-  // and load the index.html of the app.
-  // mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
-
   getIfLogged();
 };
 
@@ -27,7 +19,7 @@ const getIfLogged = () => {
     isLogged();
   } else {
     console.log(`${__dirname}/../` + " not logged")
-        // File doesn't exist in path
+    // File doesn't exist in path
     isNotLogged();
   }
 }
@@ -49,7 +41,6 @@ const isNotLogged = () => {
   mainWindow.loadURL(`file://${__dirname}/../src/notlogged.html`);
 
   mainWindow.webContents.openDevTools();
-
 }
 
 const isLogged = () => {
@@ -66,10 +57,9 @@ const isLogged = () => {
     }
   });
 
-  mainWindow.loadURL(`file://${__dirname}/../src/home.html`);
+  mainWindow.loadURL(`file://${__dirname}/../src/waitingauth.html`);
 
   mainWindow.webContents.openDevTools();
-
 }
 
 // This method will be called when Electron has finished
