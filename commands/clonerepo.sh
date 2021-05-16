@@ -3,7 +3,7 @@
 # Args: $1: Directory Path
 
 #Set env variables such as GitHub TOKEN
-source ${2}/../.source .app.env
+source ${2}/../.app.env
 source ${2}/../.token.env
 source ${2}/../.number.env
 source ${2}/../.weburl.env
@@ -29,7 +29,8 @@ parse_json()
 jsonRes=$(curl ${WEB_URL}/users/${STU_NUMBER})
 usernameGroup=$(parse_json "${jsonRes}" Group)
 repoName=$(parse_json "${jsonRes}" GroupName)
+userName=$(parse_json "${jsonRes}" GitHub)
 
 cd $1
-
-git clone https://github.com/${usernameGroup}/${repoName}
+printf $1
+git clone https://${userName}:${ACCESS_TOKEN}@github.com/${usernameGroup}/${repoName} $1

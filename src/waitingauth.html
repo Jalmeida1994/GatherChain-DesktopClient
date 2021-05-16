@@ -53,34 +53,24 @@
                     console.log(process.env.PROJECT_PATH);
                     var files = fs.readdirSync(process.env.PROJECT_PATH);
                     console.log(files)
-
-                    var i;
-                    if (files.length == 0) {
-                        window.location = "create.html"
+                    if (fs.existsSync(`${process.env.PROJECT_PATH}/.git`)) {
+                        console.log('exists')
+                        window.location = "home.html";
                     }
                     else {
-                        for (i = 0; i < files.length; i++) {
-                            if (files[i] === alreadyProjectFile) {
-                                console.log("Chosen directory is a git project.")
-                                window.location = "home.html";
-                                break;
-                            }
-                            else {
-                                const execSync = require('child_process').execSync;
-                                const output = execSync(`${__dirname}/../commands/checkteam.sh ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
-                                console.log('Output was:\n', output);
-                                if (output != 0) {
-                                    console.log('not 0')
-                                    const execSync2 = require('child_process').execSync;
-                                    const output2 = execSync2(`${__dirname}/../commands/clonerepo.sh ${process.env.PROJECT_PATH} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
-                                    console.log('Output was:\n', output2);
-                                    window.location = "home.html";
-                                }
-                                else {
-                                    console.log('it was 0')
-                                    window.location = "create.html"
-                                }
-                            }
+                        const execSync = require('child_process').execSync;
+                        const output = execSync(`${__dirname}/../commands/checkteam.sh ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
+                        console.log('Output was:\n', output);
+                        if (output != 0) {
+                            console.log('not 0')
+                            const execSync2 = require('child_process').execSync;
+                            const output2 = execSync2(`${__dirname}/../commands/clonerepo.sh ${process.env.PROJECT_PATH} ${__dirname}`, { encoding: 'utf-8' });  // the default is 'buffer'
+                            console.log('Output was:\n', output2);
+                            window.location = "home.html";
+                        }
+                        else {
+                            console.log('it was 0')
+                            window.location = "create.html"
                         }
                     }
                 }

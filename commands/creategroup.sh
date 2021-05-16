@@ -57,8 +57,10 @@ do
         numbers+=( ${student} )
         echo $numbers
         jsonResponse=$(curl ${WEB_URL}/users/${student})
-        usernames+=( $(parse_json "${jsonRes}" GitHub) )
-        echo $usernames
+        echo $jsonResponse
+        user=$(parse_json "${jsonResponse}" GitHub)
+        echo $user
+        usernames+=( ${user} )
         echo $i
     fi
 done
@@ -69,7 +71,7 @@ echo "Creating the group's ${groupname} repository in the GitHub's user: ${usern
 curl -X POST -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN}  https://api.github.com/user/repos -d '{"name":"'"${groupname}"'","private":"true"}'
 
 # Invites the Admin
-curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${ADMIN_GITHUB} -d '{"permission":"pull"}' 
+curl -X PUT -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/repos/${username}/${groupname}/collaborators/${ADMIN_GITHUB} -d '{"permission":"pull"}' 
 
 # Updates group in redis
 url="${WEB_URL}/registernumber"
@@ -86,7 +88,7 @@ for w in ${!usernames[@]}
 do
     echo "https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w]}"
     echo "Username: ${usernames[w]}"
-    curl -X PUT -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w]} -d '{"permission":"admin"}' 
+    curl -X PUT -H "Accept: application/vnd.github.v3+json" -u ${username}:${ACCESS_TOKEN} https://api.github.com/repos/${username}/${groupname}/collaborators/${usernames[w]} -d '{"permission":"admin"}' 
     # Updates group in redis
     body="{\"Author\":\"${numbers[w]}\",\"GitHub\":\"${usernames[w]}\",\"Group\":\"${username}\",\"GroupName\":\"${groupname}\"}"
     if curl --fail -X POST -H "Content-Type: application/json" -d "${body}" "${url}"; then

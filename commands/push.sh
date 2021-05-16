@@ -57,18 +57,17 @@ members=$(echo $GRP_NAME | tr "-" "\n")
 echo "Pushing the commit hash to the blockchain network in group ${GRP_NAME}..."
 
 if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${STU_NUMBER}\",\"Group\":\"${GRP_NAME}\",\"Commit\":\"${GIT_HASH}\"}" ${WEB_URL}/push; then
-printf "Hash ${GIT_HASH} commited to the Network! Pushing to remote repo."
-
-#Add the remote repo to the .git and pushes
-git config pull.rebase false
-git pull
-git push -u origin master
+    printf "Hash ${GIT_HASH} commited to the Network! Pushing to remote repo."
+    #Add the remote repo to the .git and pushes
+    # git config pull.rebase false
+    git pull
+    git push -u origin master
 else
-printf "Error pushing the latest commit to the network: ${GIT_HASH}!"
-git reset --soft HEAD~1
-git config author.name "${username}" 
-git config user.name "${username}"
-exit 1
+    printf "Error pushing the latest commit to the network: ${GIT_HASH}!"
+    git reset --soft HEAD~1
+    git config author.name "${username}" 
+    git config user.name "${username}"
+    exit 1
 fi;
 
 git config author.name "${username}" 

@@ -236,12 +236,15 @@
         return data
       }
       lsExample().then(res => {
+        console.log(res)
         Refresh()
       }).catch(res => {
         if (window.alert("Error pushing changes.")) {
+          console.log(res)
           Refresh();
         }
         else {
+          console.log(res)
           Refresh();
         }
       })
