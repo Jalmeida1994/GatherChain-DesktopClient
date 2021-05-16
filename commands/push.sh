@@ -60,7 +60,7 @@ if curl --fail -X POST -H "Content-Type: application/json" -d "{\"Author\":\"${S
     printf "Hash ${GIT_HASH} commited to the Network! Pushing to remote repo."
     #Add the remote repo to the .git and pushes
     # git config pull.rebase false
-    git pull
+    # git pull
     git push -u origin master
 else
     printf "Error pushing the latest commit to the network: ${GIT_HASH}!"
