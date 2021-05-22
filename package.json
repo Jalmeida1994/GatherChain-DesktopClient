@@ -39,6 +39,7 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {
+            "executableName": "GatherChain",
             "name": "GatherChain"
           }
         },
