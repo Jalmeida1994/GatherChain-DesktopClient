@@ -20,6 +20,7 @@
   "config": {
     "forge": {
       "packagerConfig": {
+        "executableName": "GatherChain",
         "name": "GatherChain"
       },
       "makers": [
