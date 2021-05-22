@@ -20,14 +20,13 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "executableName": "GatherChain",
-        "name": "GatherChain"
+        "name": "gatherchain"
       },
       "makers": [
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "GatherChain"
+            "name": "gatherchain"
           }
         },
         {
@@ -39,14 +38,13 @@
         {
           "name": "@electron-forge/maker-deb",
           "config": {
-            "executableName": "GatherChain",
-            "name": "GatherChain"
+            "name": "gatherchain"
           }
         },
         {
           "name": "@electron-forge/maker-rpm",
           "config": {
-            "name": "GatherChain"
+            "name": "gatherchain"
           }
         }
       ]
