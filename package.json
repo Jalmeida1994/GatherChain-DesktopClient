@@ -2,7 +2,7 @@
   "name": "gatherchain",
   "productName": "GatherChain",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "GatherChain is a blockchain-based solution for version control of engineering artefacts",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
