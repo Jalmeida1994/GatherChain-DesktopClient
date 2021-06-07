@@ -78,8 +78,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Home Screen][home-screenshot]](images/HomeScreen.png)
-
+<p>
+    <img src="images/HomeScreen.png" height="600" />
+</p>
 
 GatherChain is the solution created for my Master Thesis: __Tracing Responsibility in Evolution of Model's Life Cycle in Collaborative Projects in Education__.
 In the paper, it is proposed a blockchain-based solution for version control of engineering artefacts.  The goal is to facilitate collaboration in a multi-user area,like the education field, and track changes in a trusted and secure manner. This solution is based on using the Hyperledger Fabric Network to govern and regulate file version control functions among students and teachers.
@@ -145,7 +146,9 @@ When the blockchain is initialized using [GatherChain Admin Commands](https://gi
 
 To register in the app the users need to have a GitHub account. The application asks for the student number and then it redirects to the [GitHub's device activation screen](https://github.com/login/device). The code to be pasted is copied to the clipboard automatically. If it's not you can go the app screen and copy the code from it.
 
-[![Welcome Screen][welcome-screenshot]](images/WelcomeScreen.png)
+<p>
+    <img src="images/WelcomeScreen.png" height="600" />
+</p>
 
 ### Choose Project Folder
 
@@ -155,20 +158,26 @@ After the student number and GitHub account are registered in the solution, the 
 
 If the folder is does not have a project yet, then, the user is prompt to create a group. The group elements must already be registered in the solution. The user inserts the other group element's numbers seperated by WHITESPACE (eg: 1937 1954).
 
-[![Group Creation Screen][groupcreation-screenshot]](images/GroupCreationScreen.png)
+<p>
+    <img src="images/GroupCreationScreen.png" height="600" />
+</p>
 
 ### Home Screen
 
 After the group is created the users can use the app as a normal version control interface. The users can check the commits, timestamps of said commits and respective authors, stored in the blockchain network.
 
-[![Home Screen][home-screenshot]](images/HomeScreen.png)
+<p>
+    <img src="images/HomeScreen.png" height="600" />
+</p>
 
 * Users can push the new changes;
 * Users can pull/download the most recent group changes;
 * Users can undo to a certain past commit (The commits deleted are still stored in the blockchain network);
 * Users can check the file changes in each commit with GitHub's incorporated `diff` screen. [Example](https://github.com/Jalmeida1994/GatherChain-DesktopClient/commit/7033909ba10dd4e76e653f845955ec56c2ee3392)
 
-[![Actions][actions-screenshot]](images/Actions.png)
+<p>
+    <img src="images/Actions.png" height="300" />
+</p>
 
 
 <!-- ROADMAP -->
