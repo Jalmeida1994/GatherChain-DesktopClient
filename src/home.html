@@ -29,9 +29,9 @@
           </div>
         </li>
         <li>
-          <span class="fab-label">Checkout</span>
+          <span class="fab-label">Undo To</span>
           <div class="fab-icon-holder" onclick="Checkout()">
-            <i class="fa fa-level-down"></i>
+            <i class="fa fa-undo"></i>
           </div>
         </li>
         <li>
@@ -42,7 +42,7 @@
         </li>
       </ul>
     </div>
-    <div id="spinner" style="position: absolute; right: 3000px; left: 3000px; " class="loader"></div>
+    <div id="spinner" class="loader"></div>
     <p id="1"></p>
   </div>
 
@@ -124,7 +124,7 @@
     function Checkout() {
       const prompt = require('electron-prompt');
       prompt({
-        title: "Enter the code of the commit you want to checkout",
+        title: "Enter the commit you want to revert to",
         label: "Commit's SHA code :",
         value: 'b60560e',
         inputAttrs: {

@@ -20,7 +20,8 @@
   "config": {
     "forge": {
       "packagerConfig": {
-        "name": "gatherchain"
+        "name": "gatherchain",
+        "icon": "images/icon.icns"
       },
       "makers": [
         {
