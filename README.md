@@ -78,10 +78,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](images/arm-template.png)
+[![Home Screen][home-screenshot]](images/HomeScreen.png)
+
 
 GatherChain is the solution created for my Master Thesis: __Tracing Responsibility in Evolution of Model's Life Cycle in Collaborative Projects in Education__.
-In the paper, it is proposed a blockchain-based solution for version control of model-driven engineering artefacts.  The goal is to facilitate collaboration in a multi-user area,like the education field, and track changes in a trusted and secure manner. This solution is based on using the Hyperledger Fabric Network to govern and regulate file version control functions among students and teachers.
+In the paper, it is proposed a blockchain-based solution for version control of engineering artefacts.  The goal is to facilitate collaboration in a multi-user area,like the education field, and track changes in a trusted and secure manner. This solution is based on using the Hyperledger Fabric Network to govern and regulate file version control functions among students and teachers.
 This repository is a part of the larger GatherChain solution.
 
 The other GatherChain projects are:
@@ -102,11 +103,12 @@ This repository serves as the desktop interface for the solution. Made to be use
 <!-- GETTING STARTED -->
 ## Getting Started
 
-In this section it'll be shown how to get started with this solution. It is fixed the Azure cloud as the cloud environment for the solution. All the commands were tested with Azure.
+In this section it'll be shown how to get started with this solution. After the resources are deployed in the cloud using [GatherChain ARM Template](https://github.com/Jalmeida1994/GatherChain-ARM-Template) and you can follow the distribution steps presented here.
 ### Prerequisites
 
-* [Azure Subscription](https://docs.microsoft.com/en-us/azure/cost-management-billing/manage/create-subscription)
-* [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli)
+* [GatherChain resources deployed in the cloud](https://github.com/Jalmeida1994/GatherChain-ARM-Template)
+* [macOS](https://www.apple.com/macos)
+* [NPM](https://www.npmjs.com/)
 
 ### Installation
 
@@ -114,44 +116,65 @@ In this section it'll be shown how to get started with this solution. It is fixe
    ```
    git clone https://github.com/Jalmeida1994/GatherChain-DesktopClient.git
    ```
-2. Change the parameters in [azuredeploy.parameters.json](https://github.com/Jalmeida1994/GatherChain-DesktopClient/blob/master/azuredeploy.parameters.json) to your needs;
-
-4. Login to Azure in `az` if not logged yet
+2. Change the [weburl.env](https://github.com/Jalmeida1994/GatherChain-DesktopClient/blob/master/.weburl.env) file with the URL of the WebApp instantiated during the GatherChain ARM Template phase.
+    ```
+    export WEB_URL=https://NameOfTheApp.azurewebsites.net
+    ```
+    The domain `azurewebsites` is only used if the GatherChain Template was deployed in Azure and if no custom domain was configured in the webapp.
+    
+3. Change the [admin.env](https://github.com/Jalmeida1994/GatherChain-DesktopClient/blob/master/.admin.env) file with the GitHub account of the administrator of the class.
+    ```
+    export ADMIN=GITHUB_USERNAME
+    ```    
+5. Install npm modules from `package.json` and create the distributable app.
    ```
-   az login
+   cd /path/to/GatherChain-DesktopClient
+   npm install
+   npm run make
    ```
-5. Create the resource group (list of locations available with `az account list-locations -o table`)
-   ```
-   az group create --name ${resourcegroup_name} --location ${location}
-   ```
-6. Deploy ARM template to the previously created resource group
-   ```
-    az deployment group create --resource-group ${resourcegroup_name} --template-file azuredeploy.json --parameters azuredeploy.parameters.json
-   ```
+6. Distribute to the class the macOS application created during the previous step in the path `/path/to/GatherChain-DesktopClient/out/gatherchainx64/gatherchain.app`
    
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-After the template is deployed to your cloud provider of choice or on premises infraestructure, you should start the blockchain network using the admin commands found in the [GatherChain Admin Commands](https://github.com/Jalmeida1994/GatherChain-AdminCommands).
-
-_For more information, please refer to the [Documentation](https://github.com/Jalmeida1994/GatherChain-AdminCommands/blob/master/README.md)_
-
+When the blockchain is initialized using [GatherChain Admin Commands](https://github.com/Jalmeida1994/GatherChain-AdminCommands), the users can use the application as their version-control GUI.
 
 <!-- USAGE EXAMPLES -->
-### Cleanup
+### Register Student
 
-To delete all the resources created use the `az group delete` command
-   ```
-    az group delete --name ${resourcegroup_name} -y
-   ```
+To register in the app the users need to have a GitHub account. The application asks for the student number and then it redirects to the [GitHub's device activation screen](https://github.com/login/device). The code to be pasted is copied to the clipboard automatically. If it's not you can go the app screen and copy the code from it.
+
+[![Welcome Screen][welcome-screenshot]](images/WelcomeScreen.png)
+
+### Choose Project Folder
+
+After the student number and GitHub account are registered in the solution, the user is prompt to choose the folder location to host the project.
+
+### Create Group
+
+If the folder is does not have a project yet, then, the user is prompt to create a group. The group elements must already be registered in the solution. The user inserts the other group element's numbers seperated by WHITESPACE (eg: 1937 1954).
+
+[![Group Creation Screen][groupcreation-screenshot]](images/GroupCreationScreen.png)
+
+### Home Screen
+
+After the group is created the users can use the app as a normal version control interface. The users can check the commits, timestamps of said commits and respective authors, stored in the blockchain network.
+
+[![Home Screen][home-screenshot]](images/HomeScreen.png)
+
+* Users can push the new changes;
+* Users can pull/download the most recent group changes;
+* Users can undo to a certain past commit (The commits deleted are still stored in the blockchain network);
+* Users can check the file changes in each commit with GitHub's incorporated `diff` screen. [Example](https://github.com/Jalmeida1994/GatherChain-DesktopClient/commit/7033909ba10dd4e76e653f845955ec56c2ee3392)
+
+[![Actions][actions-screenshot]](images/Actions.png)
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
 See the [open issues](https://github.com/Jalmeida1994/GatherChain-DesktopClient/issues) for a list of proposed features (and known issues).
-
 
 
 <!-- CONTRIBUTING -->
