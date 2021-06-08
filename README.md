@@ -125,7 +125,7 @@ In this section it'll be shown how to get started with this solution. After the 
     
 3. Change the [admin.env](https://github.com/Jalmeida1994/GatherChain-DesktopClient/blob/master/.admin.env) file with the GitHub account of the administrator of the class.
     ```
-    export ADMIN=GITHUB_USERNAME
+    export ADMIN_GITHUB="github_username"
     ```    
 5. Install npm modules from `package.json` and create the distributable app.
    ```

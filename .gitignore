@@ -7,8 +7,5 @@ node_modules/
 #VSCode directory
 .vscode/
 
-#env
-*.env
-
 # Out Folder
 out/
